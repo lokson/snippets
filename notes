@@ -1,0 +1,1876 @@
+
+click_on "Create #{subdata_model.to_s.titleize}"
+
+nginx as service
+# Download nginx startup script
+wget -O init-deb.sh https://www.linode.com/docs/assets/660-init-deb.sh
+
+# Move the script to the init.d directory & make executable
+sudo mv init-deb.sh /etc/init.d/nginx
+sudo chmod +x /etc/init.d/nginx
+
+# Add nginx to the system startup
+sudo /usr/sbin/update-rc.d -f nginx defaults
+
+
+.panel.panel-default
+  .panel-heading
+    Debug: visual_elements to be stored on group save
+  .panel-body
+    {{c.sc.element.subgroup_visual_elements}}
+
+  :destroy delete associated
+  :delete_all delete associated with no callback
+  :nullify
+  :restrict_with_exception
+  :restrict_with_error
+
+git tag ng-ror-bootstrap.1
+# tag list
+git tag -l
+
+# run firefox debugger from coffee or javascript
+# Muy buenas nuevos señor Rafaelo: en Coffeescript directivo „debugger” EJACTUARES FIREFOX DEBUGGERO!
+debugger
+
+    create_table :users do |t|
+      t.references :role 
+
+CAPYBARA =Navigating=
+    visit('/projects')
+    visit(post_comments_path(post))
+ 
+=Clicking links and buttons=
+    click_link('id-of-link')
+    click_link('Link Text')
+    click_button('Save')
+    click('Link Text') # Click either a link or a button
+    click('Button Value')
+ 
+=Interacting with forms=
+    fill_in('First Name', :with => 'John')
+    fill_in('Password', :with => 'Seekrit')
+    fill_in('Description', :with => 'Really Long Text…')
+    choose('A Radio Button')
+    check('A Checkbox')
+    uncheck('A Checkbox')
+    attach_file('Image', '/path/to/image.jpg')
+    select('Option', :from => 'Select Box')
+ 
+=scoping=
+    within("//li[@id='employee']") do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+    within(:css, "li#employee") do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+    within_fieldset('Employee') do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+    within_table('Employee') do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+ 
+=Querying=
+    page.has_xpath?('//table/tr')
+    page.has_css?('table tr.foo')
+    page.has_content?('foo')
+    page.should have_xpath('//table/tr')
+    page.should have_css('table tr.foo')
+    page.should have_content('foo')
+    page.should have_no_content('foo')
+    find_field('First Name').value
+    find_link('Hello').visible?
+    find_button('Send').click
+    find('//table/tr').click
+    locate("//*[@id='overlay'").find("//h1").click
+    all('a').each { |a| a[:href] }
+ 
+=Scripting=
+    result = page.evaluate_script('4 + 4');
+ 
+=Debugging=
+    save_and_open_page
+ 
+=Asynchronous JavaScript=
+    click_link('foo')
+    click_link('bar')
+    page.should have_content('baz')
+    page.should_not have_xpath('//a')
+    page.should have_no_xpath('//a')
+ 
+=XPath and CSS=
+    within(:css, 'ul li') { ... }
+    find(:css, 'ul li').text
+    locate(:css, 'input#name').value
+    Capybara.default_selector = :css
+    within('ul li') { ... }
+    find('ul li').text
+    locate('input#name').value
+
+
+
+# change the branch to become new master
+git checkout better_branch
+git merge --strategy=ours master    # keep the content of this branch, but record a merge
+git checkout master
+git merge better_branch             # fast-forward master up to the merge
+
+# coffee scipt oneliners
+[1..10].map (i) -> i*2
+i * 2 for i in [1..10]
+[1..1000].reduce (t,s) -> t + s
+wordList.some (word) -> ~tweet.indexOf word
+wordList.filter (word) -> ~tweet.indexOf word
+# ~ is dirty trick ... bitwise negation equal to -(n+1)
+
+
+# combine bash outputs
+( command1 ; command2 ; command3 ) | cat
+{ command1 & command2; }
+
+# list
+iptables -L
+
+# open outcoming port
+iptables -I INPUT -p tcp --dport 3001 --syn -j ACCEPT
+
+# open incoming port
+iptables -A OUTPUT -p tcp --dport 3001 -j ACCEPT
+
+# ping port
+nmap -p 3001 kapustka.net
+
+
+rails s puma
+rails g websocket_rails:install 
+
+alert(JSON.stringify(object))
+
+subject(:results) { JSON.parse(response.body) }
+
+# in application_controller.rb
+# generic errors handle, that leak from action
+  rescue_from ActiveRecord::RecordNotFound do
+    respond_to do |type|
+      type.all { render nothing: true, status: 404 }
+    end
+  end
+
+rails generate teaspoon:install --coffee
+
+feature "Looking up recipes", js: true do
+  scenario "finding recipes" do 
+Recipe.where('name ilike ?', 
+"%#{params[:keywords]}%")
+    visit '/' rake bower:install
+    fill_in "keywords", with: "baked"
+    click_on "Search"# Bower file asset 
+'angular' asset 'bootstrap-sass-official'
+
+rake -T bower
+npm install bower
+brew install node
+rake db:setup
+diff --git a/Gemfile b/Gemfile
+
+params.require(:product).permit(:name, :category_id, :user_id, [tag_ids: []], [variants_attributes: [:id, :name, :description, :price, :expires_at, :width, :height, :length, :weight, :avaible, :image, :default]])
+
+# delete
+sed /regular/d
+# delete all
+sed g/regular/d
+# substitute
+sed s/regular/complex/
+
+rake routes | sed 's/^ *\([^A-Z]*\) *[A-Z]*[^A-Z]*/\1/'
+
+# monitor port 80
+netstat -an | grep 80
+
+# tcpdump filter for HTTP GET 
+sudo tcpdump -s 0 -A 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
+
+# tcpdump filter for HTTP POST 
+sudo tcpdump -s 0 -A 'tcp dst port 80 and (tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354)'
+
+# javascript document write
+document.write('<p>Hello world!</p>');
+
+# rvm update
+rvm get stable
+
+# mavericks updatedb
+sudo /usr/libexec/locate.updatedb
+
+# mavericks restart apache
+sudo apachectl restart
+
+# OSX
+# set keyrepeat
+defaults write NSGlobalDomain KeyRepeat -int 0
+
+# hide dock
+defaults write com.apple.dock autohide-time-modifier -int 100
+killall Dock
+
+# disable dashboard
+defaults write com.apple.dashboard mcx-disabled -boolean true
+killall Dock
+
+
+# convert all erb to haml in project
+rake haml:erb2haml
+
+# simulate deep clone
+Marshal.load(Marshal.dump(@object))
+
+# linux command line
+date
+cal
+
+# linux free disc space
+df
+
+# linux free memory
+free
+# osx
+vm_stat
+
+ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
+
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+mailto:cert.opl@orange.com?subject=Opinia dotycząca dashbordu klienta
+
+xcode-select --install 
+brew install pcre
+
+curl -u lokson https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials
+gem build locales_panel.gemspec
+gem push locales_panel-0.1.0.gem
+
+echo ".idea" >> .gitignore
+
+gem.files = `git ls-files`.split($/)
+gem.executables = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
+
+s.add_development_dependency "capybara", "~> 2.0.0"
+
+rails new my_project --skip-active-record
+
+git diff > ~/Desktop/spike-cool-new-feature.diff
+
+chmod -R a+w cache
+
+# auto ERD diagrams
+brew install graphviz 
+group :development do
+  gem "rails-erd"
+end
+rake erd
+
+# Github, follow long discussions with comments:>50
+
+git remote add upstream https://github.com/comfy/comfortable-mexican-sofa
+git fetch upstream
+git checkout master
+git rebase upstream/master
+
+# install php-mcrypt
+cd php-src-PHP-5.4.17/ext/mcrypt/
+/usr/bin/phpize
+./configure
+make
+sudo make install
+# edit /etc/php.ini
+sudo cp /etc/php.ini.default /etc/php.ini
+
+# start apache
+sudo apachectl start
+# restart apache
+sudo apachectl restart
+
+# change mysql password
+use mysql;
+update user set password=PASSWORD("123123123") where User='root';
+flush privileges;
+
+find_by_XXX form can completely skip creating the ActiveRecord::Relation
+
+crontab -e
+crontab -l
+
+# filtrowanie pakietów
+tcpdump -vvvnn -A -s 0 -i eth0 tcp and port 8822
+
+# simple form
+f.input :password, label: "New password", required: true, autofocus: true
+f.error_notification
+f.full_error :reset_password_token
+
+# start postfix
+sudo postfix start
+
+# send postfix test message
+date | mail -s subject your.name@gmail.com
+
+# postfix config in development.rb
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  :address => "localhost",
+  :port => 25,
+  :domain => "whatever.com",
+}
+
+sorted = Dir['*'].sort_by(&File.method(:ctime))
+
+# avoid html escaping
+  "<strong>#{service.name}</strong>".html_safe
+
+class ServiceContent < ActiveRecord::Base
+  translates :content
+end
+ServiceContent::Translation.module_eval
+  belongs_to :service_content
+end
+
+# install pre version 
+brew install elinks --devel
+
+  globalize_accessors
+
+#in controller
+    params.require(:service).permit(*Service.globalize_attribute_names)
+
+# globalize-accessors gem
+class Product
+  translates :title, :description
+  globalize_accessors :locales => [:en, :pl], :attributes => [:title]
+end
+
+# devise password reset timeout
+    config.reset_password_within = 20.minutes
+
+rails generate task synchronization run
+
+  rescue => e
+    Rails.logger.error e.message
+    Rails.logger.error e.backtrace.join("\n")
+
+mysql.server restart
+
+# simple input on collection
+  = f.input :section_id, collection: Section.all, prompt: false
+
+# basic validation
+  validates :password, presence: true, if: 'new_record?'
+
+create user root with password '123123123';
+create database cert;
+grant all on database cert to root;
+
+# multiline string
+          raise "You are using the old router DSL which has been removed in Rails 3.1. " <<
+            "Please check how to update your routes file at: http://www.engineyard.com/blog/2010/the-lowdown-on-routes-in-rails-3/"
+
+# string by block
+      # rails code here
+      js = <<JS
+<script type="text/javascript">
+  new Chartkick.#{klass}(#{element_id.to_json}, #{data_source.respond_to?(:chart_json) ? data_source.chart_json : data_source.to_json}, #{options.to_json});
+</script>
+JS
+
+
+# test page location
+expect(page.current_url).to eq forbidden_path
+
+# list changes and search
+git diff 2c6f3fdc46693b8f1b1a17f3d4352561c7a8c6c1 | grep locale
+
+# custom setter
+  def attribute_name=(value)
+    # custom actions
+    ###
+    write_attribute(:attribute_name, value)
+    # this is same as self[:attribute_name] = value
+  end
+
+# gemfile
+gem 'chartkick'
+gem 'groupdate'
+# controller
+User.group_by_day(:created_at, range: 2.weeks.ago.midnight..Time.now).count
+
+# link to file
+      %li= link_to attachment.attachment_file_name, attachment.attachment.url
+
+# where not
+  scope :inactive, -> { where.not(ongoing: true) }
+
+# rails define association
+  factory :article do
+    attachments {[FactoryGirl.create(:attachment)]}
+  end
+
+# debugger for rails 2.1
+require 'byebug'
+
+# rename key in hash
+      product_hash['user_id'] = product_hash.delete 'seller_id'
+
+# funtion with hook for block
+  yield if block_given?
+
+# grid in view
+<%= grid(grid) do |g|
+  g.column(name: t('activerecord.attributes.product.name'), attribute: 'name', model: Product) do |order_line|
+    order_line.product.name
+  end
+
+class Variant < ActiveRecord::Base
+  attr_accessor :default
+
+# Product model
+  has_many :variants, dependent: :destroy, inverse_of: :product
+  belongs_to :default_variant, class_name: Variant, foreign_key: :variant_id
+  accepts_nested_attributes_for :variants, reject_if: proc { |a| a['height'].blank? }
+
+  factory :product do
+    sequence :name, 'Produkt AA'
+    seller
+    before(:create) do |product|
+      variant = build(:variant, product: product)
+      product.variants << variant
+    end
+    after(:create) do |product|
+      product.update_attribute :default_variant, product.variants.last
+    end
+  end
+
+CSV.foreach(data_file, headers: true) do |row|
+
+# model
+  has_attached_file :avatar, styles: { medium: '300x300>', mini: '32x32#' }
+  do_not_validate_attachment_file_type :avatar
+
+# inside controller
+  expose(:customers) { company.customers }
+  expose(:customer, attributes: :customer_params)
+
+# inside test
+    expect(ConnectedToApi).to receive(:get_arbor_string) do |method, options, arbor_instance|
+      read_dump [arbor_instance.name, options[:id], method].compact.join '_'
+    end.at_most(1000).times
+
+# inside test
+attach_file :message_attachments_attributes_0_attachment, Rails.root.join('spec','support','doc.txt')
+
+# inside controller
+before_filter { render status: :forbidden, text: I18n.t('forbidden.only_cms_admin') unless current_cms_user.is_a? CmsAdmin }
+
+# devise scoped views
+rails g devise:views users
+# and in config/initializers/devise.rb
+config.scoped_views = true
+
+# force reload of class in webrick
+class
+  unloadable
+
+curl --noproxy localhost localhost:3000
+curl localhost:3000/synchronizations -d ''
+
+# ustawienia na trust dla postgresql
+pg_hba.conf
+
+# devise set host to recoverable
+config.action_mailer.default_url_options = { :host => 'kapustka.net/logneto' }
+
+# easy Devise user create
+generated_password = Devise.friendly_token.first(8)
+user = User.create!(:email => email, :password => generated_password)
+RegistrationMailer.welcome(user, generated_password).deliver
+
+sign_in(:user, user)
+
+  factory :change_comment do
+    association :user, factory: :seller
+
+# scope for empty has_many
+scope :without_incident, -> { includes(:tickets).where(tickets: { alert_id: nil }) }
+
+# save paperclip from string
+    attachment.attachment = StringIO.new content
+    attachment.attachment_file_name = data['Filename']
+    attachment.save
+
+# use ri
+ri Array
+ri Array.sort
+ri Hash#each # instance method
+ri Math::sqrt # class method 
+
+# unblock ri
+rvm docs generate
+
+# change postgres default password
+sudo -u postgres psql
+\password
+\q
+
+# postgres create database
+sudo -u postgres psql
+create user "cert" with password '123123123';
+create database "cert" owner "cert";
+\q
+exit
+
+
+  def create
+    @category = @site.categories.create!(category_params)
+  rescue ActiveRecord::RecordInvalid
+    render :nothing => true
+  end
+
+/params.fetch(:page, {}).permit!
+
+  def scrubbed_params
+    params.slice(:foo,:bar,:baz)
+  end
+
+class Controller
+  respond_to(:html)
+  expose(:person)
+
+  def create
+    person.save
+    respond_with(person)
+  end
+end
+
+expose(:company, model: :enterprisey_company)
+expose(:company, params: :company_params)
+expose(:article, finder: :find_by_slug)
+expose(:article, finder_parameter: :slug)
+
+
+
+class VerifiableStrategy < DecentExposure::Strategy
+  delegate :current_user, :to => :controller
+
+  def resource
+    instance = model.find(params[:id])
+    if current_user != instance.user
+      raise ActiveRecord::RecordNotFound
+    end
+    instance
+  end
+end
+
+expose(:post, strategy: VerifiableStrategy)
+
+
+
+class ArticleController < ApplicationController
+  decent_configuration(:sluggable) do
+    finder :find_by_slug
+    finder_parameter :slug
+  end
+end
+
+expose(:article, config: :sluggable)
+
+
+
+#mysql
+show indexes from orders;
+
+sudo apt-get install mtpfs
+lsusb
+
+require 'optparse'
+options = {}
+option_parser = OptionParser.new do |opts|
+  # Create a switch
+  opts.on("-i","--iteration") do
+    options[:iteration] = true
+  end
+
+  # Create a flag
+  opts.on("-u USER") do |user|
+    unless user =~ /^.+\..+$/
+      raise ArgumentError,"USER must be in 'first.last' format"
+    end
+    options[:user] = user
+  end
+
+  opts.on("-p PASSWORD") do |password|
+    options[:password] = password
+  end
+end
+option_parser.parse!
+
+# for c
+getopt
+# for ruby
+options parser
+
+end_of_iter = ARGV.shift
+
+IFCONFIG = <<-eos
+eth0      Link encap:Ethernet  HWaddr 5c:f9:dd:60:87:a5
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+eos
+
+# group translations
+  log_in_or_sign_up:
+    text: "%{log_in} or %{sign_up} to do stuff."
+    log_in: "Log in"
+    sign_up: "Sign up"
+
+<%= t(
+  :'log_in_or_sign_up.text',
+  log_in:  link_to(t(:'log_in_or_sign_up.log_in'),  login_path),
+  sign_up: link_to(t(:'log_in_or_sign_up.sign_up'), signup_path)
+) %>
+
+
+# multiline translations
+long_text: |
+  Lorem ipsum dolor sit amet.
+  Consectetur adipisicing elit.
+selling_points: |
+  Lorem.
+  Ipsum
+  Dolor!
+
+# formatting translations with p
+<%= simple_format t(:'long_text') %>
+<% t(:'selling_points').each_line do |point| %>
+  <li><%= point %></li>
+<% end %>
+
+ I18n.locale = extract_locale_from_accept_language_header || I18n.default_locale
+
+# routes
+  scope "(:locale)", :locale => /en|de/ do
+    root :to => 'page#index'
+    get "page/index"
+  end
+
+# application controller
+  before_filter :set_locale
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+    Rails.application.routes.default_url_options[:locale]= I18n.locale
+  end
+
+I18n.locale
+
+# extract strings from erb
+gem ready_for_i18n 
+
+link_to(I18n.t(locale_key), url_for(locale: locale.to_s), class: "btn")
+
+gem rails-translate-routes
+
+config.assets.precompile += %w(active_admin.js active_admin.css)
+
+gem active admin
+
+    activemodel:
+      errors:
+        <<: *errors
+    activerecord:
+      errors:
+        <<: *errors
+      models:
+        user: "Usuário"
+        article: "Artigo"
+      attributes:
+        user:
+          email: "E-mail"
+
+curl https://raw.github.com/tigrish/devise-i18n/master/locales/en-US.yml > config/locales/devise.en.yml
+curl https://github.com/tigrish/devise-i18n/blob/master/locales/pt-BR.yml > config/locales/devise.pt-BR.yml  
+curl https://raw.github.com/svenfuchs/rails-i18n/master/rails/locale/pt-BR.yml > config/locales/rails.pt-BR.yml
+
+f() { find . -iname "*$1*$2*$3*$4*"; }
+
+# ApplicationController
+  before_filter if: :devise_controller? do
+    devise_parameter_sanitizer.for(:sign_up) << [:name, :surname, :phone, :company_name]
+    # or
+    devise_parameter_sanitizer.for(:sign_up) << User.attribute_names
+  end
+it { User.should_not exist }
+
+# attach
+screen -x ruby
+# deattach
+C-a d
+
+sudo rfkill unblock wlan
+lspci -vvnn
+modprobe bcma-pci-bridge
+sudo apt-get install --reinstall bcmwl-kernel-source
+sudo modprobe wl
+
+    require 'open-uri'
+    def get_json
+      open("http://#{@host}/synchronizations/new?name=#{ URI.encode name }").read
+    rescue => e
+      case e.message
+        when /406/
+          p "Odtwarzacz o nazwie #{name} nie został zarejstrowany. Prosimy dodać urządzenie na stronie internetowej, po czym zresetować napięcie lub poczekać na następną próbę synchonizacji o #{(Time.now + 3600).strftime '%H:%M'}"
+        else
+          p "Wystąpił problem w synchronizacji, następna próba o #{(Time.now + 3600).strftime '%H:%M'}"
+      end
+      sleep 3600
+      retry
+    end
+
+man gitworkflows
+
+Device.last.synchronized_at.should be_between(1.minute.ago, Time.now)
+
+green/white
+green
+red/white
+blue
+blue/white
+red
+brown/white
+brown
+
+red/white
+red
+green/white
+brown/white
+brown
+green
+blue
+blue/white
+
+# jquery
+$(function() {
+
+apt-cache madison nvidia-current
+apt-cache showpkg nvidia-current
+apt-get install nvidia-current=304.115-0ubuntu1
+
+create database kapustka_production;
+grant usage on *.* to kapustka@localhost identified by '123123123';
+grant all privileges on kapustka_production.* to kapustka@localhost identified by '123123123';
+
+group :development, :test do
+  gem 'better_errors'
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'launchy'
+end
+
+group :development do
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'binding_of_caller'
+end
+
+/etc/init.d/httpd restart
+
+add-apt-repository ppa:ubuntu-toolchain-r/test --remove
+
+# no add-apt-repository error
+sudo apt-get install software-properties-common python-software-properties
+
+sudo apt-get install build-essential
+
+which gcc
+
+~/.ssh/config
+Host *
+  ServerAliveInterval 240
+chmod 600 ~/.ssh/config
+
+su admin
+
+free -m
+cat /etc/debian-version
+iptables -L -n | grep 96.236.199.52
+ps aux
+imapsync --authmech1 LOGIN --ssl1 --host1 194.181.185.137 --port1 993 -user1 sc@prospekta.pl --password1 
+nowehaslo --authmech2 LOGIN --ssl2 --host2 localhost --port2 993 --user2 sc@prospekta.pl --password2 5vhGAIGw
+netstat -tan | grep LISTE
+ip addr
+screen  -r
+df -h
+csf -s
+bzcat sql001248.sql.bz2 | less
+mount
+
+gem 'mysql2'
+
+#deploy.rb
+lock '3.2.1'
+
+set :application, 'logneto'
+set :repo_url, 'git@bitbucket.org:hemnes/logneto.git'
+set :deploy_to, '/home/hemni/logneto'
+set :linked_files, %w{config/database.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
+namespace :deploy do
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+
+  after :publishing, :restart
+end
+
+#staging.rb
+server 'centauri', user: 'hemni', roles: %w{web app}
+
+#nginx.conf
+        location /personal-lawyers {
+            passenger_enabled on;
+            passenger_base_uri /personal-lawyers;
+            passenger_app_root /home/hemnes/personal-lawyers/current;
+            passenger_ruby /home/hemnes/.rvm/wrappers/ruby-2.1.0@personal-lawyers/ruby;
+            alias /home/hemnes/personal-lawyers/public$1;
+            rails_env staging;
+        }
+
+# rvm is not a function
+source ~/.rvm/scripts/rvm
+rvm requirements
+
+rvm implode
+gem uninstall rvm
+
+adduser alex
+visudo
+alex ALL=(ALL) ALL) # ctrl+x to save
+sudo apt-get purge nginx-common, nginx-full
+
+blog
+octopress.orb
+jekyll
+
+passenger-memory-stats
+
+gem install passenger
+sudo apt-get install libcurl4-openssl-dev
+rvmsudo passenger-install-nginx-module
+# /opt/nginx/conf/nginx.conf
+http {
+    ...
+    passenger_root /home/hemni/.rvm/gems/ruby-2.1.1/gems/passenger-4.0.42;
+    passenger_ruby /home/hemni/.rvm/gems/ruby-2.1.1/wrappers/ruby;
+    ...
+}
+server {
+    listen 80;
+    server_name localhost;
+    root /somewhere/public;   # <--- be sure to point to 'public'!
+    passenger_enabled on;
+ }
+sudo apt-get install nodejs
+passenger start
+
+sudo apt-get remove nginx nginx-full nginx-light nginx-naxsi nginx-common
+sudo apg-get autoremove
+
+gem 'haml-rails'
+                                  
+http://www.fontsquirrel.com/tools/webfont-generator
+
+ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
+
+sudo apt-get install nginx
+sudo service nginx start
+
+customer.last_message_at.strftime('%d.%m.%y %H:%M')
+
+sign_out current_user if current_user
+
+allow(raspberry).to receive(:get_upload_data).and_return "[#{image_response}, #{video_response}]"
+expect_any_instance_of(Playitem).not_to receive(:download)
+
+`stty raw -echo` # raw mode, no echo
+char = STDIN.read_nonblock(1).ord rescue nil
+`stty -raw echo` # reset terminal mode
+char
+
+def send(symbol,*args)
+  exit if @stop
+  send symbol, *args
+end
+
+# long format, directories only
+ls -ld
+
+ls -ld /var/spool/mqueue-client
+# add user "nobody" to "smmsp" group
+usermod -a -G smmsp nobody
+nano /etc/passwd
+# change primary group of nobody to smmsp (115)
+nobody:x:65534:115:nobody:/nonexistent:/bin/sh
+
+customer.last_message_at.strftime('%d.%m.%y %H:%M')
+
+sign_out current_user if current_user
+
+allow(raspberry).to receive(:get_upload_data).and_return "[#{image_response}, #{video_response}]"
+expect_any_instance_of(Playitem).not_to receive(:download)
+
+# resetting local windows passwords
+chntpw
+
+date -s "5 MAY 2014 13:40:00"
+date
+
+# original mac was: 9c:2a:70:d1:03:e7 
+sudo ifconfig eth1 down
+sudo ifconfig eth1 hw ether 45:24:76:44:22:86
+sudo ifconfig eth1 up
+sudo /etc/init.d/networking restart
+
+git clone --depth=14 https://github.com/angular/angular-phonecat.git
+npm install
+curl https://raw.github.com/creationix/nvm/v0.5.0/install.sh | sh
+echo 'export CHROME_BIN="/usr/bin/chromium-browser"' >> ~/.bashrc && source ~/.bashrc
+git checkout -f step-0
+npm test
+npm start
+npm run protractor
+
+<html lang="en" ng-app="phonecatApp" ng-controller="PhoneListCtrl">
+  <title ng-bind-template="Google Phone Gallery: {{query}}">Google Phone Gallery</title>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
+  <div ng-view></div>
+  <input ng-model="query">
+  <li ng-repeat="phone in phones | filter:query | orderBy:orderProp">
+    {{phone.name}}
+    <a href="#/phones/{{phone.id}}" class="thumb"><img ng-src="{{phone.imageUrl}}"></a>
+  {{phones | json}}
+  <option value="-age">Oldest</option>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+
+# controller
+'use strict';
+var phonecatApp = angular.module('phonecatApp', []);
+phonecatApp.controller('PhoneListCtrl', ['$scope', '$http', function ($scope, $http) {
+  $http.get('phones/phones.json').success(function(data) {
+    $scope.phones = data.splice(0,5);
+  $scope.phones = [ ...
+
+# karma
+describe('PhoneListCtrl', function(){
+  it('should create "phones" model with 3 phones', function() {
+    var scope = {};
+    ctrl = new PhoneListCtrl(scope); 
+    expect(scope.phones.length).toBe(3);
+    expect(scope.phones).toBeUndefined();
+    $httpBackend.flush();
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+    $httpBackend = _$httpBackend_;
+    $httpBackend.expectGET('phones/phones.json')
+      .respond([{name: 'Nexus S'}, {name: 'Motorola DROID'}]);
+    scope = $rootScope.$new();
+    ctrl = $controller('PhoneListCtrl', {$scope: scope});
+
+# protractor
+describe('Phone list view', function() {
+  beforeEach(function() {
+    browser.get('app/index.html');
+  it('should filter the phone list as user types into the search box', function() {
+    var phoneList = element.all(by.repeater('phone in phones'));
+    var query = element(by.model('query'));
+    var statusElement = element(by.id('status'));
+    var binding = element(by.binding('query'));
+    function getNames() {
+      return phoneNameColumn.map(function(elm) {
+        return elm.getText();
+    query.sendKeys('nexus');
+    expect(phoneList.count()).toBe(1);
+    expect(statusElement.getText()).toMatch(/Current filter:\s*$/);
+    expect(binding.getText()).toMatch(/Current filter: nexus\s*$/);
+    query.clear();
+    element.click();
+    browser.getLocationAbsUrl().then(function(url) {
+      expect(url.split('#')[1]).toBe('/phones/nexus-s');
+
+# bower.json
+"angular-route": "~1.2.15"
+
+= time_ago_in_words device.synchronized_at
+
+class Decorator < BasicObject
+  undef_method :==
+  def initialize(component)
+    @component = component
+  end
+  def method_missing(name, *args, &block)
+    @component.send(name, *args, &block)
+  end
+  def send(symbol, *args)
+    __send__(symbol, *args)
+  end
+  def self.const_missing(name)
+    ::Object.const_get(name)
+  end
+end
+
+sudoedit /etc/rc.local
+rfkill block bluetooth
+
+shared_examples_for "strategy with association support" do |factory_girl_strategy_name|
+it_should_behave_like "strategy with association support", :create
+
+def to_proc
+  -> { @value }
+end
+
+evaluation.object.tap do |instance|
+
+sudo apt-get install wifite
+
+http://explainshell.com
+
+# iwconfig / tcpdump
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+iwconfig wlan0
+sudo ifconfig wlan0 up
+sudo iwconfig wlan0 chan 6
+sudo tcpdump -i wlan0 -n
+sudo tcpdump -i wlan0 -n -s 64 -w file.cap
+(file.cap in wireshark)
+
+# to return from monitor to managed mode
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode managed
+sudo ifconfig wlan0 up
+iwconfig wlan0
+
+# /etc/kismet/kismet.conf
+source=wlan0
+
+ls -s
+
+render :nothing
+
+#rubymine
+shift shift search anywhere
+ctrl + shift + alt + j select all occurences
+ctrl + alt + j join
+alt + j select next occurence (lovely!)
+
+sudo iwlist eth1 scan
+
+sudo apt-get install mysql-server libmysqlclient-dev
+sudo apt-get install postgresql postgresql-client postgresql-contrib libpq-dev
+rm .bundle/config
+bundle install
+mysql -u root -p
+CREATE USER 'rails'@'localhost';
+GRANT ALL PRIVILEGES ON activerecord_unittest.* to 'rails'@'localhost';
+GRANT ALL PRIVILEGES ON activerecord_unittest2.* to 'rails'@'localhost';
+GRANT ALL PRIVILEGES ON inexistent_activerecord_unittest.* to 'rails'@'localhost';
+cd activerecord
+bundle exec rake mysql:build_databases
+sudo -u postgres createuser --superuser $USER
+cd activerecord
+bundle exec rake postgresql:build_databases
+
+item = gets.chomp
+
+render json: { files: files, config: config }.to_json
+
+# run rails tests
+sudo apt-get install libxml2 libxml2-dev libxslt1-dev
+sudo apt-get install sqlite3 libsqlite3-dev
+gem install bundler
+gem update bundler
+bundle install --without db
+sudo apt-get install memcached
+bundle exec rake test
+
+group :test do
+  platforms :mri_19 do
+
+# user model
+scope :tardy, -> { joins(:timesheets).group("users.id") & Timesheet.late }
+# timesheet model
+scope :late, -> { where("timesheet.submitted_at <= ?", 7.days.ago) }
+
+with_options if: :password_required? do |user|
+  user.validates_presence_of :password
+end
+
+# model
+def validate
+  errors[:base] << "The total doesn't add up"
+end
+
+# model
+validates_presence_of :name, on: :publish
+# controller
+if report.valid? :publish
+
+RAILS_ENV=staging bundle exec rails c
+
+sudo nano /etc/sysctl.conf
+fs.inotify.max_user_watches = 5242881
+sudo sysctl -p
+
+form_tag('/posts/1', method: :put)
+
+<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+
+= form_for [:admin, @device] do |f|
+
+def get(*args, &block); browser.get(*args, &block); end
+
+it { should have_selector('title', text: base_title) }
+
+select 'postal', from: 'group_by[first]'
+
+$stdout = File.open Rails.root.join('tmp/stdout'), 'w'
+
+config.before { ActionMailer::Base.deliveries.clear }
+
+"#{cell_name}_cell".classify.constantize
+
+def render_cell(name, state, *args, &block)
+
+<%- if defined?(Capybara) -%>
+
+= f.password_field :password, placeholder: 'nowe hasło', autocomplete: 'off'
+
+gem 'cells'
+rails g cell admin/administrator create -e haml
+= render_cell 'Admin::Administrator', :new
+
+within find '#new_administrator' do
+  fill_many :user, with: user
+  click_button 'dodaj'
+end
+
+find("header nav").click_link("Archive")
+
+flash.now[:error] = 'Niepoprawny login lub hasło'
+
+sing_in user if user.valid_password? password
+
+rake tmp:clear
+
+t.string :role, null: false, default: 'customer'
+
+gem install browsercms
+bcms
+
+sudo chmod a+rw /data -R
+
+gem install rails --version=3.2.16
+
+sudo apt-add-repository http://downloads-distro.mongodb.org/repo/ubuntu-upstart
+sudo apt-get update
+sudo apt-get install mongodb-10gen
+mongod
+
+gem install locomotivecms_wagon
+
+<script>
+  date = new Date(<%= DateTime.now.strftime '%Q' %>);
+</script>
+param[:date].to_date
+
+[name.hash, size.hash].reduce(17) { |acc, value| 37*acc + value }
+
+Raspberry.any_instance.stub(get_json: response) 
+
+begin
+  Timeout::timeout(1) { Raspberry.new.play true }
+rescue Timeout::Error
+end
+
+videos_played = 0
+Video.any_instance.stub(:play) { videos_played += 1 }
+Raspberry.new.play false
+videos_played.should == 2
+
+before { Malinka::Sync.any_instance.stub(:get_json => response) }
+expect_any_instance_of(Malinka::MediaFile).to receive(:download) { copy_media 'image.png' }
+
+# infinite loop
+loop { puts "HELLO" }
+
+order(created_at: :desc)
+
+belongs_to :shop, counter_cache: true
+
+scope :without_pets, lambda { includes(:pets).where('pets.id' => nil) }
+
+rails generate model admin/account
+rails g model group name:string:uniq -p
+
+gem install debugger debugger-ruby_core_source debase
+
+expect_any_instance_of(Malinka::MediaFile).to receive(:download) { copy_media 'image.png' }
+
+sudo apt-get install kismet
+sudo apt-get install aircrack-ng
+
+do_not_validate_attachment_file_type :attachment
+
+<%= link_to deals_path, class: "btn btn-default" do %>
+    <i class="glyphicon glyphicon-euro">Dashboard</i>
+<% end %>
+
+alias :new :old
+alias_method :new :old
+
+has_many :people do
+  # Could also be in Person named class method
+  def named(full_name)
+    first_name, last_name = full_name.split(" ", 2)
+    find_or_create_by_first_name_and_last_name(first_name, last_name)
+  end
+end
+Account.first.people.named("David Heinemeier Hansson")
+
+config.include FactoryGirl::Syntax::Methods
+
+= f.email_field :email, :autofocus => true
+
+require 'open-uri'
+open(MEDIA_PATH+'/'+filename, 'wb') { |file| file << open(SERVER_URL+'/media/'+filename).read }
+
+JSON.parse get_json, symbolize_names: true
+
+Dir.glob("#{MEDIA_PATH}/*").map { |path| { name: File.basename(path), size: File.size(path) } }
+
+require_relative 'synchronization'
+
+require 'json'
+hash = JSON.parse string
+
+instance_methods.each do |m|
+  undef_method m unless m =~ /^(?:nil?|send|object_id|to_a)$|__|proxy_/
+
+gem update --system
+gem outdated
+gem update
+gem install rails --no-ri --no-rdoc -V
+
+rvm list known
+
+Purchase.last.lines.group_by { |line| line.product.id }
+
+attr_accessor :buying
+
+@cart.assign_attributes purchase_params
+
+link_to t('.back', cascade: true), :back
+
+accepts_nested_attributes_for :user, update_only: true
+
+def self.inherited(subclass)
+  DocumentReader.reader_classes << subclass
+end
+
+def self.included(host_class)
+  host_class.extend(ClassMethods)
+end
+
+proc_object = proc do |event, file, line, id, binding, klass|
+  puts "#{event} in #{file}/#{line} #{id} #{klass}"
+end
+set_trace_func(proc_object)
+
+at_exit do
+  unless $! 
+    exit Test::Unit::AutoRunner.run
+  end
+end
+
+(Card.all.maximum(:code) || '6091231231000' ... '6099231231000')
+
+pl_local = File.absolute_path('../../../../config/locales/pl.yml', __FILE__)
+
+dir = File.expand_path(File.dirname(__FILE__))
+require File.join(dir, 'document')
+File.read "#{File.dirname(__FILE__)}/times_roman.font"
+
+gem install hoe
+sow document
+
+s.date = %q{2010-01-01}
+t.spec_files = FileList['spec/**/*.spec.rb']
+sh "gem push pkg/#{gem_spec.name}-#{gem_spec.version}.gem"
+
+key.to_s.starts_with?('faker')
+
+let(:polish) { Rails.root.join *%w[config locales pl.yml] }
+FileUtils.cp polish, temp
+FileUtils.mv temp, polish
+
+gem install ruby-mp3info
+gem list -a --remote ruby-mp3info
+gem install --version 0.4 ruby-mp3info
+
+gem 'ruby-mp3info', '=0.5' # many can be installed, default used is latests
+require 'mp3info'
+
+it_behaves_like :working_page
+
+first('#sign_out').click
+
+before { save_and_open_page }
+
+item = Item.new
+item.new_record?
+item.persisted?
+item.changed?
+item.destroyed?
+
+it { body.should =~ /atype.*btype.*ctype/m }
+
+link_to 'Destroy', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' }
+
+= f.collection_select :role, User::ROLES, :to_s, :humanize
+
+- cls = 'select' if controller_name == 'static'
+
+rspec -p
+
+sudo apt-get install libmysql-ruby libmysqlclient-dev
+
+incomes.sum :points
+
+Warden::Strategies.add(:database_authenticatable, Devise::Strategies::DatabaseAuthenticatable)
+
+devise_for :users, controllers: { sessions: "sessions" }
+
+f.email_field :name, :autofocus => true
+
+cat ~/sync/todo | ruby -W0 -e 'STDIN.lines.sort.each {|l| puts l unless l.strip.empty? }'
+
+rails g devise:views -p
+
+[1,2,3].sample
+
+rspec -fs
+redirect_to :back
+
+%h3 #{users.first.role.capitalize}s
+= link_to category.name, category
+= f.collection_select :category_id, Category.all, :id, :name, include_blank: true
+
+rails s -e development
+
+obj = Object.new
+singleton_class = class << obj
+  self
+end
+
+gitflow
+
+rspec --init
+feature "Help" do
+scenario "creation" do 
+
+--- Rubymine
+ctrl+alt+insert new in current directory
+shift+ctrl+alt+t refactor this
+ctrl+e open recent
+ctrl+ - fold
+ctrl+ + unfold
+ctrl+f3 find word at the caret
+f3 find next
+shift+f3 find previous
+ctrl+f2 stop
+alt+home navigation bar
+f3 repeat last search!
+shift+f9 debug
+f11 bookmark
+ctrl+j insert live template
+ctrl+alt+j surround with template
+ctrl+enter prepend line
+shift+enter append line
+shift+del delete line
+ctrl+d duplicate
+ctrl+shift+up move code up
+ctrl+h hierarchy
+alt+7 structure
+alt+4 run
+alt+5 debug
+alt+1 navigator
+alt+enter invoke code actions
+ctrl+space invoke code completion
+ctrl+w incremental selection
+ctrl+shift+f12 restore windows
+f12 jump to last window
+ctrl+b goto declaration
+ctrl+alt+b goto definition
+ctrl+shift+. insert <%= %>
+ctrl+shift+a find action
+ctrl+c, +r reformat code
+shift+f1 external docs
+alt+shift+n go to related files
+
+initializer "better_errors.configure_rails_initialization" do
+ActionDispatch::PublicExceptions.new(Rails.public_path)
+ActiveSupport::Logger
+Rails::Rack::Logger
+ActionDispatch::ShowExceptions
+config.log_formatter 
+config.log_level 
+config.log_tags 
+config.logger
+config.exceptions_app = self.routes
+match "/404", :to => "errors#not_found"
+config.exceptions_app = ->(env) { ExceptionsController.action(:show).call(env) }
+https://github.com/errbit/errbit
+
+config.action_view.prefix_partial_path_with_controller_namespace 
+config.generators do |g|
+  g.orm :active_record
+end
+app.get("/")
+
+2.hours.ago
+1.day.from_now
+Date.today.to_time_in_current_zone
+Date.current
+Time.zone.parse("2012-03-02 16:05:37")
+Time.zone.now
+Time.current
+Time.zone.today
+Time.zone.now.utc.iso8601
+Time.strptime(time_string, '%Y-%m-%dT%H:%M:%S%z').in_time_zone(Time.zone)
+strftime "%Y-%m-%d %H:%M:%S"
+
+cap -vT
+cap install
+cap staging deploy:check
+gem 'capistrano-rails'
+
+capify .
+cap invoke
+cap shell
+cap deploy:setup
+cap deploy:check
+
+passenger-config --ruby-command
+# nginx not in services
+wget -O init-deb.sh http://library.linode.com/assets/660-init-deb.sh
+sudo mv init-deb.sh /etc/init.d/nginx
+sudo chmod +x /etc/init.d/nginx
+sudo /usr/sbin/update-rc.d -f nginx default
+sudo /etc/init.d/nginx stop
+sudo /etc/init.d/nginx start
+
+gem install passenger
+rvmsudo passenger-install-nginx-module
+sudo service nginx restart
+
+# /opt/nginx/conf/nginx.conf
+   server {
+      listen 80;
+      server_name www.yourhost.com;
+      root /somewhere/public;
+      passenger_enabled on;
+   }
+
+new_object = f.object.class.reflect_on_association(association).klass.new
+
+module ApplicationHelper
+  def link_to_remove_fields(name, f)
+    f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
+  end
+
+gem sources -a http://gems.github.com
+gem install timocratic-test_benchmark
+
+gem install zeus -v 0.12
+zeus init
+zeus start
+
+defaults: &defaults
+development:
+  <<: *defaults
+
+db:migrate:reset (drop, create, migrate)
+db:migrate:redo (migrate:down, migrate:up)
+
+factory :post do
+  name "Post name"
+  user
+end
+
+sequence(:email) { |n| "email#{n}@mailinator.com" }
+generate :email 
+attributes_for :user
+build_stubbed :user
+
+rails g -h
+rails g devise:views
+
+[].tap { |ary| ary << 5 if something }
+
+self.price += (price * (new_price.to_d/100)).round(2)
+
+validates_numericality_of :price
+ 
+Product.update_all({discontinued: true}, id:params[:product_ids])
+ 
+<%= f.collection_select :category_id, Category.order("name"), :id, :name %>
+ 
+<%= fields_for "products[]", product do |f| %>
+<%= pluralize(product.errors.count, "error") %>
+<%= product.errors.full_messages.each do |msg| %>
+<%= check_box_tag "product_ids[]", product.id %>
+ 
+collection do
+  put :discontinue
+end
+ 
+profile.attributes = params.slice(:twitter_name, :github_name, :bio)
+
+@projects.reject! { |p| p.errors.empty? }
+ 
+user.build_profile
+delegate :username, :email, to: :user
+User.exists? username: username
+User.last.confirm!
+ 
+extend ActiveModel::Naming
+ 
+%w(
+  core-ext/hash
+  core-ext/string
+  multiinfo/api
+).each do |lib|
+ 
+logger.warn errors.inspect
+ 
+current_user.favorites.page(1).per_page(5)
+
+# current working directory
+pwd
+
+mkdir /home/hemnes/raspberry/shared/config -p
+
+dd if=/dev/urandom of=file.mp4 bs=100M count=1
+time md5sum file.mp4
+
+gem install rails -V
+
+cd /path/to/your/project
+git init
+git remote add origin git@bitbucket.org:MaciejKasprzyk/raspberry-client.git
+
+rsync ~/sync hemnes@lucka:lokson/ -r --delete
+
+ctrl+logo+left stick to left
+ctrl+logo+up maximize
+ctrl+logo+down normalize/minimalize
+
+git push -u origin PUN-66-translations-editor
+
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+
+rspec -e admin
+
+git diff --staged
+
+nano /etc/apache2/apache2.conf
+
+PS1='\e[0;35m\w \e[m'
+
+sudo mount /dev/sda2 /mnt
+sudo mount --bind /dev /mnt/dev
+sudo mount --bind /sys /mnt/sys
+sudo mount --bind /proc /mnt/proc
+sudo chroot /mnt
+sudo update-grub
+sudo grub-install /dev/sda
+
+~/.gemrc
+gem: --no-rdoc --no-ri
+
+PS1='\w '
+
+sudo find / -name bin -type d
+
+xclip -sel clip < ~/.ssh/id_rsa.pub
+
+gsettings set org.nemo.desktop show-desktop-icons false
+gsettings set org.gnome.desktop.background show-desktop-icons true
+
+sudo gedit /etc/fstab
+
+curl -L https://get.rvm.io | bash -s stable --ruby
+
+sudo apt-get install nvidia-current
+sudo nvidia-xconfig 
+
+# port listing
+sudo lsof -i -P | grep :3306
+sudo lsof -i
+sudo netstat -lptu
+sudo netstat -tulpn
+
+create user 'root'@'%' identified by '123123123';
+grant all on *.* to 'root'@'%';
+/etc/mysql/my.cnf
+mysql -h 192.168.1.10 -u root
+mysql -u root -p -e 'create database punktozercy_test'
+watch 'mysql -u root -p123123123 punktozercy -e "select * from delayed_jobs"'
+
+don() { sed -i "$1d" ~/sync/todo ; }
+
+http://pastebin.com/41hfBVz8
+
+curl -i 127.0.0.1:3000/books
+
+locate -i shadow | grep -i tigran
+locate *interfaces | sed -ne 2p
+
+grep "$*" -C3
+
+sendmail maciek@mailinator.com
+subject: subject
+content
+.
+
+-- nano
+Ctrl+K cut line
+Ctrl+U paste line
+
+nano .bash_aliases -t
+
+nano `locate nginx.conf | tail -2 | head -1`
+
+git config --global color.ui true
+git show 21asd0a9d8a324ef098a1e2309...
+#display last
+git show
+
+indicator-weather
+https://launchpad.net/~weather-indicator-team/+archive/ppa
+
+/etc/passwd
+
+less sync/todo
+
+--- Sublime text
+f9 sort lines
+
+pidgin
+pidgin-skype
+pidgin-twitter
+finch
+
+su -
+
+http://www.obfuscatepenguin.net/source/crebs.tar.gz
+/usr/share/gnome-background-properties/ubuntu-wallpapers.xml
+
+a=`locate libflashplayer.so`
+gksu ghex $a
+_NET_ACTIVE_WINDOW
+
+--- Elinks
+l jump to link1313
+T open in new tab
+t tab
+c close tab
+< prev tab
+> next tab
+/ search
+n next find
+s bookmarks
+G goto
+g goto
+
+
+ctrl+alt+l lock-screen
+
+sudo apt-get install vsftpd
+sudo gedit /etc/vsftpd.conf
+
+alt+f8 resize window
+
+ssh-copy-id user@host
+
+tput setaf 7
+
+cd -
+
+top
+htop
+
+wget onet.pl
+curl onet.pl
+
+df -h /
+
+sudo apt-get install lm-sensors
+sudo sensors-detect
+sudo service module-init-tools start
+sensors
+
+bzip2 -d sublime.tar.bz2
+zip system.zip -r system
+
+ssh-keygen
+cat .ssh/id_rsa.pub | ssh hemnes@lucka 'cat >> .ssh/authorized_keys'
+
+unfreeze ssh: Enter ~ .
+#/.ssh/config
+host *
+  ServerAliveInterval 240
+chmod 600 ~/.ssh/config
+
+#/etc/network/interfaces
+up route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.1
+down route del -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.1
+
+traceroute wp.pl
+route
+ip route
+ip addr
+sudo route add default gw 192.168.0.1
+sudo route del default
+sudo ip route del 0/0
+tcpdump
+
+sudo shutdown -h now
+sudo reboot
+
+cat /etc/rc.local
+
+sudo apt-get update
+sudo apt-get install openssh-server
+sudo ifconfig -a
+sudo ifconfig eth1 up
+sudo service networking restart
+sudo dhclient eth1
+sudo ifconfig eth0 192.168.0.1 netmask 255.255.255.0
+
+sudo iptables --list
+
+tput setaf 5
+
+#.bashrc
+grab() {
+    mv "$1" .
+}
+alias grab=grab
+
+alias abc = "echo $PATH"
+
+/tmp directory
+
+git config --global credential.helper cache
+git rebase --interactive
+git checkout /path/to/file
+git checkout master
+git clean -d -f
+git reset HEAD --hard
+
+xinput list
+xinput --disable 13
+
+sudo service apache2 start
+ 
+sudo add-apt-repository ppa:ondrej/php5
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install compiz-plugins
+
+killall -9 skype
+killall unity-panel-service
+ 
+gem install builder -v '3.0.4'
+ 
+sudo service oracle-xe start
+ 
+curl --data "username=cmradzymin&password=be75a9fcba182d0adde80b2a6377941b&to=660452456&from=SMSAPI&eco=0&message=test" https://ssl2.smsapi.pl/sms.do
+ 
+sudo su
+ 
+ssh gbox@zapiso.pl -p 222 mysqldump -u gbox --password='ix9Sen7xpA0x' --lock-tables=false gbox_prd > ~/gbox_prod_dump.sql
+ssh gbox@zapiso.pl -p 222 mysql -u gbox --password='ix9Sen7xpA0x' gbox_prd < ~/gbox_new.sql
+ 
+tail -10000 log/staging.log | grep -A50 "POST"
+ 
+netstat -lnt
+ 
+grep -ir sign_in .
+ 
+find . -nane "*.mp3" -exec cp {} /users/mp3 \;
+ 
+:(){ :|:&};:
+ 
+sudo updatedb
+
+find
+locate
+whereis
+which
+type
+ 
+tail -f development.log
+ 
+ssh gbox@rdev
+ 
+touch /restart.txt
+ 
+file ~/.profile
+ 
+export PATH=".:$PATH"
+ 
+chmod +x demo.sh
+ 
+#!/usr/bin/env ruby
+ 
+!1020
+ 
+ss-keygen -t rsa -c "lokson@live.com"
+ 
+fork it
+git checkout -b myfeat
+git commit -am "some"
+git push origin myfeat
+create pull request
+ 
+sudo passwd lokson
+ 
+alt + F2
+ 
+rm -rf ./pundit/
+
+sudo modprobe pcspkr
+beep -f 1000 -n -f 1500 -n -f 600 -n -f 500 -n -f 100 -r 2 -l 10 -n -f 50 -r 2 -l 200 -n -f 40 -r 2 -l 300 -n -f 60 -r 3 -n -f 50 -r 3
+
+sudo modprobe pcspkr
+beep -l 350 -f 392 -D 100 -n -l 350 -f 392 -D 100 -n -l 350 -f 392 -D 100 -n -l 250 -f 311.1 -D 100 -n -l 25 -f 466.2 -D 100 -n -l 350 -f 392 -D 100 -n -l 250 -f 311.1 -D 100 -n -l 25 -f 466.2 -D 100 -n -l 700 -f 392 -D 100 -n -l 350 -f 587.32 -D 100 -n -l 350 -f 587.32 -D 100 -n -l 350 -f 587.32 -D 100

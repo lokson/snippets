@@ -1,0 +1,1153 @@
+
+RAILS_ENV
+RACK_ENV
+# development is default
+
+# matches 2.0.2 but not 2.1.0
+gem 'decent_exposure', '~> 2.0.1'
+gem 'draper', '1.0.0.beta6'
+
+# no version means latest stable
+gem 'nokogiri', '1.5.6'
+gem 'pry-rails', '> 0.2.2'
+
+# name in require statement is different from name in repo
+gem 'webmock', require: 'webmock/rspec'
+
+gem 'carrierwave', git: 'git@github.com:carrierwaveuploader/carrierwave.git'
+gem 'carreirwave', github: 'carrierwaveuploader/carrierwave'
+
+# if there is no .gemspec at the root of a gem repository, you must tell which version to use
+gem 'deep_merge', '1.0', git: 'git://github.com/peritor/deep_merge.git'
+
+# it is possible to specify git repo as gem source
+git 'git://github.com/rails/rails.git'
+gem 'railties'
+
+git 'git://github.com/rails/rails.git', ref: '4aded'
+git 'git://github.com/rails/rails.git', branch: '3-2-stable'
+git 'git://github.com/rails/rails.git', tag: 'v3.2.11'
+
+# from filesystem
+gem 'nokogiri, path: '~/code/nokogiri'
+
+# rbenv allows you to easily install, manage and work with mulbiple Ruby interpreters.
+
+bundle install --without development test
+
+# package all gem in the vendor/cache dir of Rails app
+bundle package
+# use gems in package
+bundle install --local
+
+# binstubs should be added into version control system like any ohter source code file
+
+# upgrade binstubs from rails 3
+bundle config --delete bin
+rake rails:update:bin
+git add bin
+
+# create bin/guard
+bundle binstubs guard
+# invoke by bin/guard
+
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path("../../Gemfile", Pathname.new(__FILE__).realpath)
+
+# set up Rails stack
+config/boot.rb - set up paths and bundler
+config/application.rb - load gems and config
+config/environment.rb - run initializers
+# changes to these files require restart
+
+require 'rails/all'
+# or cherry pick
+require 'active_model/railtie'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_view/railtie'
+require 'sprockets/railtie'
+require 'rails/test_unit/railtie'
+
+module MyApp
+# creation of module for app is for the support of running many rails app in one process
+
+config.time_zone = 'Central Time (US & Canada)'
+rake time:zones:alll
+
+# default locale is :en
+
+config.generators do |g|
+  g.template_engine :haml
+  g.test_framework :rspec, fixture: false
+end
+
+# default initalizers
+backtrace_silencers.rb - modify the way that backtraces are shortened
+filter_parameter_logging.rb - specify which parameters should be filtered from logs
+inflectinos.rb - add new patterns for pluralization
+mime_types.rb - add new mime types
+session_store.rb - configure session type and key
+wrap_parameters.rb - wrap json params into nested hash with controller's name as key
+
+# default inflections for pluralization and singularization of uncountable words are in inflections.rb
+ActiveSupport::Inflector.pluralize "project"
+
+# config/secrets.yml
+# generate new one
+rake secret
+
+config.autoload_paths += %W({config.root}/extras)
+config.log_level = :debug
+# when you run tests, Rails dumps the schema of your development database and copies it to the test database using schema.rb
+config.active_record.schema_format = :sql
+# with cache_classes true rails will load classes using `require` rather than `load`
+config.cache_classes = true
+# to speed up boot time in development, code is no logner eager loaded in Rails
+config.eager_load = false
+# show detailed errors even on remote machines
+config.consider_all_requests_local = true
+# make sprockets concatenate all assets
+config.assets.debug = false
+config.assets.version = '1.0'
+# enable live asset compilation fallback (on production)
+config.assets.compile = true
+# specify additional assets
+config.assets.precompile += %w(administration.css)
+# tagged logging, ability to prepend information to log messages
+# pass an array of one or many method names that request responds to
+config.log_tags = [:subdomain]
+
+# set configuration for console only
+console do
+  require "pry"
+  config.console = Pry
+end
+
+# rails 4.1 ships with Spring application preloader. It restarts automatically when config files are changed.
+
+$LOAD_PATH
+
+# triange environment - development workstation with production database
+
+# config/database.yml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username:
+  password:
+development:
+  <<: *default
+  database: example
+
+# In rails 4.1 it's possible to configure database with environment variable DATABASE_URL
+
+# to access secret key
+Rails.application.secrets.secret_key_base
+
+# config/secrets.yml
+# Rails signs cookies using this value
+production:
+  secret_key_base: <%= ENV['SECRET_KEY_BASE'] %>
+
+- debug: useful for debugging problems later
+- info: for nonordinary events, but still in bounds of good application behaviour
+- warn: when client is doing something he is not supposed to do
+- error:
+- fatal: application is now dead and restart is necessary
+
+# in action (ActionController)
+logger.warn 'A user tried to join group twice."
+
+# logger to be used anywhere
+Rails.logger
+# active record logger
+ActiverRecord::Base.logger
+
+# clear log
+rake log:clear
+
+# query cache hit info is logged
+# mysql is extraordinarly fast for small select statements
+# "N+1" sql select problem
+
+# less with colors
+less -R
+
+# syslog may be better choice for production logging
+
+# route can include hard-coded segment keys accessible to controller actions via params
+:controller
+:action
+# its possible to insert hard-coded parameters into route definitions that don't have an effect on url matching but are passed in params
+
+# At runtime, routes block is evaluated inside instance of ActionDispatch::Routing::Mapper
+# if given route fails to match, routine fals through to the next one
+
+match 'products/:id' => 'products#show', via: :get
+get 'products/:id', to: 'products#show'
+get 'products/:id' => 'products#show'
+match 'products/:id' => 'products#show', via: [:get, :post]
+match 'products/:id' => 'products#show', via: :any
+
+# optional segment keys
+match ':controller(/:action(/:id(.:format)))', via: :any
+
+# constraints are anchored on both ends /\A\d+\z/
+get ':controller/show/:id' => :show, constraints: {id: /\d+/}
+get ':controller/show:id' => :show_error
+# short syntax for id contraint
+get ':controller/show/:id' => :show, id: /\d+/
+# constraints checking applies to params hash and request attributes that return string (not boolean) like:
+:subdomain
+:referrer
+get ':controller/:action/:id' => :show, constraints: {subdomain: 'admin'}
+# or by full access to request object
+get 'records/:id' => "records#protected", constraints: proc { |req| req.params[:id].to_i < 100 }
+
+# to dispatch request to rack-based application, use mount
+mount HelloApp, at: '/hello'
+mount HelloApp => '/hello'
+
+get "/foo", to: redirect('/bar')
+# redirect method can also take a block which receives the request params as its argument
+match "/api/v1/:api", to: redirect { |params| "/api/v2/#{params[:api].pluralize}" }, via: :any
+# redirect accepts optional :status parameter
+match "/api/v1/:api", to: redirect(status: 302) { |params| "/api/v2/#{params[:api].pluralize}" }, via: :any
+# redirect accepts instance of ActionDispatch::Routing::Redirect which is a simple Rack endpoint
+# [status, header, [body]]
+# short syntax like "items#show" relies on the action method of controller to return rack endpoint
+get "/hello", to: proc { |env| [200, {}, ["Hello world"]] }
+
+# sinatra example
+class HelloApp < Sinatra::Base
+  get "/" do
+    "Hello World!"
+  end
+end
+
+# format and respond_to
+def show
+  @product = Product.find(params[:id])
+  respond_to do |format|
+    format.html
+    format.json { render json: @product.to_json }
+    # catch any
+    format.any
+  end
+end
+# test by curl
+curl http://localhost:3000/products/show/1.json -i
+
+link_to "Products", controller: "products", action: "show", id: 1
+link_to "Help", "/main/help"
+
+# any static content in the public directory matching url is serverd instead of triggering routing
+
+# if root route is not defined it will be an internal controller Rails::WelcomeController
+
+# route globbing, route with elastic number of parts
+/items/list/base/books/fiction
+get 'items/list/*specs', controller: 'items', action: 'list'
+# now action will have access to params[:specs]
+params[:specs].split('/')
+
+# named routes
+name_url 
+name_path - just a part
+# custom name
+get 'help' => 'help#index', as: 'help'
+# to test routes in console
+app.clients_path
+# named route zeros in directly on the route you need, bypassing the matching process
+# you should probably always use the _url version in redirect_to
+# it's the rails way to use _path instead of _url
+# provide arguments in order of pattern
+link_to "Auction of #{item.name}", item_path(auction, item)
+
+# customize id, fancy urls
+def to_param
+  description.parametrize
+end
+
+# controller by option or symbol
+scope controller: :auctions do
+scope :auctions do
+controller :auctions do
+# path by option or string
+scope path: '/auctions' do
+scope '/auctions' do
+scope :auctions, :archived do
+# name prefix
+scope :auctions, as: 'admin' do
+# namespace: sugar for module, name prefix and path prefix
+namespace :auctions controller: :auctions do
+# bundle constraints by option or function
+scope controller: :auctions, constraints: {id: /\d+/}
+scope path: '/auctions', controller: :auctions do
+  constraints id: /\d+/ do
+    get 'edit/:id' => :edit
+# you may supply constraints method with an object that has a matches?(request) method
+
+# list routes
+rake routes CONTROLLER=products
+/rails/info/routes
+
+# Representational state transfer (REST)
+# request to update carriers all what's needed, thats restful
+
+link_to "Delete", auction_path(auction), method: :delete
+
+form_for "auction", url: auction_path(auction), html: { method: :patch } do |f|
+
+# PUT is for replace
+# PATCH is for replace and update
+# GET should not modify the state of server
+
+# forms in web browsers can't be submitted using anything other than a POST
+# hidden field called _method set to either "patch" or "delete"
+
+# singular "resource" is used to represent a resource that only exists once in its given context
+
+# you are promissing that whenever you use the bid-named route helpers, you will provide an auction
+resource :auctions do
+  resources :bids
+end
+
+# you can pass an object
+link_to "Delete this bid", [auction, bid], method: :delete
+
+auction = Auction.find(params[:auction_id])
+bid = auction.bids.find(params[:id])
+# prevents auction/bid mismatch
+
+resources :auctions do
+  resources :bids do
+    resurces :comments
+  end
+end
+# resources should never be nested more than one level deep
+resources :auctions do
+  resources :bids
+end
+resources :bids do
+  resources :comments
+end
+resources :comments
+
+# shallow have nesting only if needed
+resources :auctions, shallow: true do
+  resources :bids do
+    resources :comments
+  end
+end
+# or with block
+resources :auctions do
+  shallow do
+    resources :bids do
+      resources :comments
+     end
+  end
+end
+
+# to eliminate duplication, rails 4 introduces routing concerns
+concern :commentable do
+  resources :comments
+end
+# to add a routing concern, pass it as :concerns options
+resources :auctions, concerns: [:commentable]
+resources :auctions, concerns: :commentable
+
+resources :auctions do
+  resources :bids do
+    member do
+      get :retract
+    end
+  end
+end
+link_to "Retract", retract_bid_path(auction, bid)
+# short syntax
+resources :auctions do
+  resources :bids do
+    match :retract, via: [:get, :post], on: :member
+  end
+end
+
+resources :auctions do
+  collection do
+    match :terminate, via: [:get, :post]
+  end
+end
+# short syntax
+resources :auctions do
+  match :terminate, via: [:get, :post], on: :collection
+end
+
+# changes only url paths
+resources :projects, path_names: { new: 'neuvo', edit: 'cambiar' }
+resources :photos, controller: "images"
+
+# neat syntax for routes for new resources, not saved ones
+resources :reports do
+  new do
+    post :preview
+  end
+end
+form_for(report, url: preview_new_report_path) do |f|
+
+class AuctionsController < ApplicationController
+  respond_to :html, :xml, :json
+  def index
+    @auctions = Auction.all
+    respond_with(@auctions)
+  end
+end
+# with .json format this will:
+# - render view with .json extension
+# - if no view: call to_json on object
+# - if no to_json, call to_format on it
+
+# for nested and namespaced resources
+respond_with(@user, :managed, @client)
+
+# named routes with format
+link_to "XML version of this auction", auction_path(@auction, :xml)
+
+def auction
+  @auction ||= Auction.find(params[:auction_id]
+end
+
+# on DELETE method, javascript that submits a form is bound to "delete" link along with rel="nofollow"
+
+# inside controller, implementation similar to decent exposure
+protected
+def auction
+  @auction ||= current_user.auctions.build(params[:auction])
+end
+helper_method :auction
+
+# rack is modular interface for handling web requests, written in Ruby
+# hello world as rack application (status, reponse headers, response body)
+class HelloWorld
+  def call(env)
+    [200, {"Content-Type" => "text/plain"}, ["Hello world!"]]
+  end
+end
+# classes that provide this interface can be chained together as filters
+
+# much of Action Controller is implemented as Rack middleware modules
+# list rack filters used by application
+rake middleware
+
+# manipulate Rack middleware stack
+# config/application.rb
+class Application < Rails::Application
+  # Rack::ShowStatus catches all empty responses and replaces them with a site explaining error
+  config.middleware.use Rack::ShowStatus
+end
+
+# Custom Rack middleware classes need to have an explicit initializer method, even if they don't need it
+
+# args is option hash passed to initializer
+config.middleware.insert_after(existing, new, args)
+config.middleware.insert_before(existing, new, args)
+config.middleware.delete(existing)
+# deletes existing and inserts new in its place
+config.middleware.swap(existing, new, args)
+# adds to the end
+config.middleware.use(new, args)
+
+# dispatching of requests is done by ActionDispatch, part of "Action Pack"
+
+# entry point to a request is instance of ActionDispatch::Routing::RouteSet
+# it is the same object you call `draw` at the top of config/routes.rb
+# RouteSet chooses the matching rule and calls its Rack endpoint
+get 'foo', to: 'foo#index'
+FooController.action(:index).call
+# route set can call any other type of Rack endpoint, like Sinatra, redirect or bare lambda
+
+# trigger dispatching manually:
+rails c
+env = {}
+env['REQUEST_METHOD'] = 'GET'
+env['PATH_INFO'] = '/demo/index'
+env['rack.input'] = StringIO.new
+# get the body
+rack_body_proxy = DispatchMe::Application.call(env).last
+rack_body_proxy.last
+# ... or inspect response
+y DispatchMe::Application.call(env)
+
+# `y` method formats its argument as YAML string
+
+# easiest way to reload console is
+reload!
+# existing Active Record objects will also need to be reloaded (using their `reload` method)
+
+# render other action template
+render action: 'new'
+# render other template
+render template: '/products/index.html.haml'
+# template is the default option
+render '/products/index.html.haml'
+render 'products/index.html.haml'
+render 'products/index.html'
+render 'products/index'
+render 'index'
+render :index
+# :template option works with a path relative to template root ('app/views' by default)
+
+# render partial template
+# app/views/products/_product.html.haml
+render partial: 'product'
+render partial: 'shared/product'
+render partial: @product
+render @product
+render 'product'
+# partial rendering from controller is mostly used for Ajax calls
+
+# render inline template from controller
+render inline: "%span.foo #{@foo.name}", type: "haml"
+
+# render text as MIME text/HTML
+render text: 'Submission accepted'
+# render text as MIME text/plain
+render text: 'Submission accepted', content_type: 'text/plain'
+# Rails doesn't validate format of MIME identifier you pass to :content_type option
+
+render json: @record
+# tries to call to_json on @record
+# any additional options are passed to to_json call
+render json: @projects, include: :tasks
+# JSONP (JSON with padding), you can specify callback js function after browser gets response
+render json: @record, callback: 'updateRecordsDisplay'
+
+render xml: @record
+# tries to call to_xml
+
+# it sends one space, because of Safari bug
+render nothing: true
+render nothing: true, status: 401
+# alternative syntax is `head`
+# head method allows to return a response with no content and specific status code
+head :unauthorized
+# head accepts options interpreted as header names
+head :created, location: auction_path(@auction)
+# send empty 201 response and redirect
+
+render layout: false
+# app/views/layouts/login
+render layout: 'login'
+
+# set layout at controller level (not in action)
+class EventController < ActionController::Base
+  layout "events", only: [:index, :new]
+  layout "global", except: [:index, :new]
+end
+
+# usefull statuses
+# 200 OK
+# 201 Created
+# 303 See Other - (HTTP 1.1)
+# 307 Temporary Redirect - (HTTP 1.1) needs location header
+if current_user.account_expired?
+  response.headers['Location'] = account_url(current_user)
+  render text: "Account expired", status: 307
+end
+# 401 Unauthorized - when authorization (Basic or Digest HTTP) fails
+# 403 Forbidden - client has requested a resource that is not avaible via web interface
+# 404 Not found
+# 410 Gone - if you use soft delete (paranoia), trying to get deleted resource
+# 500 Internal Server Error
+# 503 Service Unavaible - when taking site down for maintenance
+
+# old HTTP 1.0 redirects:
+# 301 Moved Permanently - (HTTP 1.0) user agent should forget about old URL and use new one from now on
+# 302 Moved Temporarily - (HTTP 1.0) one-time only affair, when generally original URL is still valid
+# after calling POST and getting redirect
+# 301 - new call should be GET
+# 302 - problematic, because new call could be GET or POST (most browsers call GET, like in 303)
+# HTTP 1.1
+# 303 - use GET regardless of original verb method
+# 307 - use the same verb as original
+
+# 302 is default
+# ways to change status:
+redirect_to post_url(@post), status: :found
+redirect_to :atom, status: :moved_permanently
+redirect_to post_url(@post), status: 301
+redirect_to :atom, status: 302
+
+# setting flash
+redirect_to post_url(@post), alert: "Watch it"
+redirect_to post_url(@post), status: :found, notice: "Pay attention"
+redirect_to post_url(@post), status: 301, flash: { updated_post_id: @post.id }
+
+# register own flash types
+class ApplicationController
+  add_flash_types :error
+end
+redirect_to post_url(@post), error: "Something went wrong"
+
+# redirect and render don't stop action execution
+# consider this:
+render :activated and return
+
+# redirectiong means terminationg current request and asking the client to initiate a new one
+redirect_to(target, response_status)
+# target possibilities:
+hash - used as argument for url_for
+active record - used as @record.url_for
+string with protocol - direct path
+string without protocol - current host and protocol are prepended
+:back - shorthand for: redirect_to(request.env["HTTP_REFERRER"])
+# if there is no referrer, RedirectBackError will be raised
+
+# when view template is rendered, the context is ActionView::Base
+# Rails does loop through controller object's variables and create same variables for view
+
+# you can pass many symbols(and mix them with callback class names and one inline block) to callback method
+before_action :security_scan, :audit, :compress
+
+# make callbacks protected or private, otherwise they can be called as action, by default route
+# in addition, you can declare that method should never be dispatched
+hide_action :compress
+
+# callbacks have access to request, response and instance variables set by other callbacks
+# after_action have accesss to action variables
+# if callback calls `render` or `redirect_to` it halts action callback chain
+
+# callback by class
+after_action OutputCompressionActionCallback
+class OutputCompressionActionCallback
+  def self.after(controller)
+    controller.response.body = compress(controller.response.body)
+
+# inline callback
+# the block is executed in context of controller using instance_eval
+before_action { redirect_to new_user_session_path unless authenticated? }
+
+# before_action and after_action appends callback to existing chain
+prepend_before_action :ensure_items_in_cart
+prepend_after_action :ensure_items_in_stock
+
+# wrap action in around_action callback, with yield
+around_action :catch_exceptions
+def catch_exceptions
+  yield
+rescue => exception
+  logger.debug "Caught exception! #{exception}"
+  raise
+end
+
+# you cant call yield from blocks, so invoke call in block type of callback
+around_action do |controller, action|
+  logger.debug "before #{controller.action_name}"
+  action.call
+  logger.debug "after #{controller.action_name}"
+end
+
+# around with object callback
+around_action BenchmarkingActionCallback
+class BenchmarkingActionCallback
+  def self.around(controller)
+    Benchmark.measure { yield }
+ 
+# skipping superclass callback
+skip_before_action :authenticate
+# for around_action
+skip_action_callback :catch_exceptions
+
+before_action :authorize, only: [:edit, :delete]
+
+# add I/O-like object named stream to response object
+# use write to immediately stream data and close to exlictly close the stream
+class StreamingController < ApplicationController
+  include ActionController::Live
+  def stream
+    10_000_000.times do |i|
+      response.stream.wirte "This is line #{i}\n"
+    end
+  ensure
+    response.stream.close
+  end
+end
+# concurrent Ruby web server, such as puma, is required to take advantage of live streaming
+# all headers must be added before anything is written to stream
+# stream must be closed, otherwise a socket may be left open
+
+# By default, when a view is rendered, it first renders template and then the layout
+
+# allow views to be rendered as they are processed
+def index
+  @events = Events.all
+  render stream: true
+# this can be used only for templates, not json
+
+# send textual or binary data in a buffer as named file
+require 'RMagick'
+class CaptchaController < ApplicationController
+  def image
+    # create RMagic canvas and render difficult to read text
+    img = canvas.flatten_images
+    img.format = "JPG"
+    send_data img.to_blob, disposition: 'inline', type: 'image/jpg'
+# :disposition 'inline' - file will be shown inline
+# :disposition 'attachment' (default) - file will be downloaded
+# :filename - suggest a filename for the browser
+# :type - HTTP content type, default is 'application/octet-stream'
+# :status - defaults to '200 OK'
+
+# send existing file to client using Rack::Sendfile middleware
+# it replaces response with web server specific X-Sendfile header
+# it is fast
+send_file(path, options = {})
+# :filename - default is `File.basename(path)`, setting this overwrites :url_based_filename
+# :type - default 'application/octet-stream'
+# :disposition - default is 'attachment'
+# :status - default is 200
+# :url_based_filename - set to true if you want browser to guess filename from url, this is necessary for I18n filenames
+
+# watch out, this will send any file (not secure)
+class FileController < ActionController:Base
+  def download
+    send_file(params[:path]
+# routes.rb
+get 'file/download' => 'file#download'
+# call
+curl http:..localhost:3000/file/download?path=//etc.hosts
+
+# to cache file after sending you can copy file to public directory after sending it:
+public_dir = File.join(Rails.root, 'public', controller_path)
+FileUtils.mkdir_p(public_dir)
+FileUtils.cp(filename, File.join(public_dir, filename))
+# this will bypass routing and serve file directly from server
+
+# serve 404 html page in browser
+send_file '/path/to/404.html', type: 'text/html; charset=utf-8', status: 404
+
+# stream flash
+send_file @video_file.path, filename: video_file.title + '.flv', type: 'video/x-flv', disposition: 'inline'
+
+# new in Rails 4.1 is ability to render different html, json and xml based on some criteria
+before_action do
+  request.variant = :mobile if request.user_agent =~ /iPhone/i
+# request.variant can be set on base of subdomain, current user, api version or 
+respond_to do |format|
+  format.html do |html|
+    html.mobile do 
+      # renders app/views/posts/index.html+mobile.haml
+      @mobile_only_variable = true
+
+# Model is subclass of ActiveRecord::Base
+# you can have models that dont inherit from it
+# Adding and removing attributes is done by changing columns of the table in the database
+
+# set table name manually
+class Client < ActiveRecord::Base
+  self.table_name = "CLIENT"
+  self.primary_key = "CLIENT_ID"
+
+# set off pluralization
+# config/application.rb
+config.active_record.pluralize_table_names = false
+# other options
+config.active_record.table_name_prefix = 'department_'
+config.active_record.table_name_suffix = '_suffix'
+
+config.primary_key_prefix_type
+# :table_name - `tableid` will be used instead of `id`
+# :table_name_with_underscore - `table_id` will be used
+
+# instance variables, like @category is NOT being used to store model attributes
+# use read_attribute, write_attribute or [] operator
+
+# default attribute value
+def category
+  read_attribute(:category) || 'n/a'
+  # or shorter
+  self[:category] || 'n/a'
+
+# custom attribute setter
+def message=(txt)
+  write_attribute(:message, txt + ' in bed')
+  # or shorter
+  self[:message] = txt + ' in bed'
+
+# you can mark text column as being serialized
+# whatever you assign to that attribute will be stored in database as yaml
+# use it to store user configuration settings
+class User < ActiveRecord::Base
+  serialize :preferences, Hash
+# optional second parameter takes a class, that limits the type of object that can be stored
+# or the `SerializationTypeMismatch` will be raised
+user = User.new
+user.preferences[:inline_help] = false
+# this will not work, because preferences have no default value
+add_column :users, :preferences, :text, default: "--- {}"
+# however MySQL 5.x ignores default values for binary and text columns
+# better will be
+def preferences
+  read_attribute(:preferences) || write_attribute(:preferences, {})
+# or using after_initialize callback
+
+# `store` - special syntax for serialized hashes
+class User < ActiveRecord::Base
+  store :preferences
+  # it is set to an empty hash by default
+  # you can set handy accessors
+  store :preferences, accessors: [:inline_help]
+  # or in separate line syntax
+  store_accessor :inline_help
+# this gives you chance to call
+user = User.new
+user.inline_help = false
+user.preferences 
+# prints {"inline_help" => false}
+
+# text columns usually have maximum size of 64K
+
+# check that record was saved
+payment.new_record?
+payment.persisted?
+
+# `new` takes block for additional initialization
+# it is run after passed-in attributes are set
+c = Client.new do |client|
+  client.name = "Nile River Co."
+  client.code = "NRC"
+# also `create` allows for that block
+
+# find can take array
+Product.find [1,2]
+# it will raise ActiveRecord::RecordNotFound if any of ids cannot be found
+
+# the general rule is to use symbols for names
+# and strings for values
+
+# get all attributes as hash
+first_client.attributes
+# this will NOT use custom attribute readers
+# hash returned is not reference of internal structure, it is a copy
+
+# mass assign attributes
+first_client.attributes = { name: 'Ania' }
+# this will use custom attribute writters
+
+# `attribute_before_type_cast`, read raw attribute data
+# if you have model with rate decimal field
+# but you assign rate with "100$" string
+self[:rate] = rate_before_type_cast.tr('$,','')
+# this is a way to repair things before cast errors
+
+record.reload(lock: true)
+# reload with exclusive row lock
+
+record.clone
+# produces shallow copy, without associations
+
+Client.find_by_sql("select * from clients")
+Client.count_by_sql
+
+# use LIKE in query
+Client.where("code like ?", "#{param}%")
+
+# if you parametrize query (?), arguments will be sanitized for SQL Injection
+# this is less secure
+Client.where("code like '#{param}%'")
+# attack could be to set param to
+"Amazon'; DELETE FROM users;"
+
+# Active Record executes SQL using connection.select_all
+# it iterates over result, invoking initialize method for each row
+
+# query cache is hash on current Rails thread (you will have probably only one thread)
+# if same SQL statement is used again, it will not hit database
+# you can enable query cache manually by wrapping in block
+User.cache do
+  puts User.first
+  puts User.first
+# save and delete operations result in cache being cleared
+# to clear cache manually, call class method `clear_query_cache`
+# query is turned on by default
+# Active Record query cache is for purpose kept very simple
+
+Project.update(params[:id], params[:project])
+# take single numeric id and attribute hash
+Project.update(params[:projects].keys, params[:projects])
+# take list of ids an list of attributes hashes
+# usefull for web page with multiple updateable rows being processed
+# update class method does invoke validation
+
+project.update(params[:project])
+# returns true/false
+
+# mass update manager
+Project.update_all({manager: 'Ron'}, {technology: 'Rails'})
+# it takes two `where` arguments
+# you can use string
+Project.update_all("cost = cost * 3", "lower(technology) LIKE '%microsoft%'")
+
+# `save` returns true/false
+# `save!` will throw ActiveRecord::RecordInvalid exception 
+# there is also `create!`
+
+# update_attribute skips validation
+# update_column skips validation and callbacks (set timestamps callback too)
+
+# Active Record creates convenience methods for mass assignment of model with associations
+# if Project has_many :users, there will be 'user_ids' attribute writer
+# in form you can name checkboxes 'project[user_ids][]'
+
+record.increment :counter
+record.decrement :counter
+record.toggle :flag
+# bang variants call `update_attribute` after change
+
+user = User.first
+# sets updated_at to current time
+user.touch
+# sets updated_at and viewed_at to current time
+user.touch :viewed_at
+
+class Customer < ActiveRecord::Base
+  attr_readonly :social_security_number
+# the only moment readonly attributes may be set are when object is not saved yet
+# trying to set value for readonly doesn't raise error
+Customer.readonly_attributes
+
+timesheet.destroy
+timesheet.destroyed?
+# calling save on destroyed will fall silently
+timesheet.destroy!
+# if it falls, ActiveRecord::RecordNotDestroyed will be raised
+timesheet.delete
+# this will run delete sql query
+# destroy will also prevent you from modyfiing record again
+Timesheet.delete(1)
+Timesheet.delete([2,3])
+Timesheet.destroy(1)
+Timesheet.destroy([2,3])
+# delete is faster, it doesn't load record
+# destroy runs before_destroy callbacks and associations cascades
+
+# optimistic locking - handle concurrent changes problem only if needed
+add_column :timesheets, :lock_version, :integer, default: 0
+# just this changes Active Records behavior
+# first save will win update, second will cause ActiveRecord::StaleObjectError
+# other column name than `lock_version`
+config.active_record.locking_column = :alternate_lock_version
+# like other active_record settings, you can change it per model
+self.locking_column = :alternate_lock_version
+# handling error
+def update
+  timesheet = Timhesheet.find(params[:id])
+  timesheet.update(params[:timesheet])
+rescue ActiveRecord::StaleObjectError
+  flash[:error] = "Timesheet was modified while you were editing it."
+  redirect_to [:edit, timesheet]
+
+# pessimistic locking requires database support
+# it works in conjunction with transactions
+Timesheet.transaction do
+  t = Timesheet.lock.first
+  t.approved = true
+  t.save!
+end
+# if you decide you don't need lock anymore
+t.lock false
+# lock is released once transaction is commited
+# concurent rails process is waiting for another
+# keep pessimistic-locking transactions small and fast
+
+# ActiveRecord::Relation is chainable and lazy evaluated
+
+# this will create where IN clause
+Product.where(sku: [9400,9500,9900])
+
+Article.where.not(title: 'Rails 3')
+Article.where.not(title: ['Rails 3', 'Rails 5'])
+
+Message.where("subject LIKE :foo OR body LIKE :foo", foo: '%woah%')
+
+# simple synxtax, only for equality and AND
+User.where(login: login, password: password).first
+
+# watch out, this doesn't work
+User.where('email = ?', nil)
+# these work
+User.where('email IS NULL')
+User.where(email: nil)
+
+Timesheet.order(created_at: :desc)
+
+# order for fetching random record
+# MySQL
+Timesheet.order('RAND()')
+# Postgres
+Timesheet.order('RANDOM()')
+# SQL Server, uses random uuids to sort
+Timesheet.order('NEWID()')
+# Oracle
+Timesheet.order('dbms_random.value')
+# Any database
+Timesheet.limit(1).offset(rand(Timesheet.count)).first
+
+# offset has to be chained to limit
+# second page of 10 results
+Timesheet.limit(10).offset(10)
+
+# if you want to fully use objects and add atributes
+BillableWeek.select(:*, "mon_hrs + tues_hrs as two_day_total")
+
+def self.find_tagged_with(list)
+  select("#{table_name}.*")
+  .from("#{table_name}, tags, taggings")
+  .where("#{table_name}.#{primary_key} = taggings.taggable_id
+    and taggings.tag_id = tags.id
+    and tags.name IN (?)", Tag.parse(list))
+# this can be used as mixin
+
+User.exists?(1)
+User.exists?(login: "mack")
+User.exists?(id: [1,3,5])
+User.where(login: "mack").exists?
+
+module Pagination
+  def page(number)
+    # pagination code
+scope = Model.all.extending(Pagination)
+scope.page(params[:page])
+
+# generally you will want to combine group() with select()
+Account.select('name, SUM(cash) as money').group('name')
+User.group('create_at').having(["created_at > ?", 2.days.ago])
+
+# solve N+1 by eager loading associations
+Client.includes(users: [:avatar, {timesheets: :billable_weeks}])
+# aliases for includes
+Client.eager_load( ...
+Client.preload( ...
+
+# joins() method is for grouping and aggregating but with no loading associated objects
+Buyer.select('buyers.id, count(carts.id) as cart_count')
+.joins('left join carts on carts.buyer_id = buyers.id')
+.group('buyers.id')
+
+# none is Null Object pattern
+Post.none
+# this can be chained, will not run any sql and not throw exception
+
+# chaining readonly marks returned objects as readonly
+# you won't be able to save them 
+
+# refenreces indicates that sql string uses association
+# this does not work
+Team.includes(:members).where('members.name = ?', 'Tyrion')
+# this works
+Team.includes(:members).where('members.name = ?", 'Tyrion').references(:members)
+# or it works with hash where syntax
+Team.includes(:members).where(members: { name: 'Tyrion' })
+# also ordering will work
+Team.includes(:members).order('members.name')
+
+# replace existing defined order
+Member.order('name DESC').reorder(:id)
+# any subsequent calls to order will append to query
+
+Member.order(:name).reverse_order
+
+User.select(:login).uniq
+User.select(:login).distinct
+
+Member.order('name DESC').unscope(:order)
+# unscope specific `where` values
+Member.where(name: "Tyrion", active: true).unscope(where: :name)
+# unscope accepts
+:from
+:group
+:having
+:includes
+:joins
+:limit
+:lock
+:offset
+:order
+:readonly
+:select
+:where
+
+# generate custom SQL
+users = User.arel_table
+users.where(users[:login].eq("mack")).to_sql
+
+# connect to two databases
+# connections are created via ActiveRecord::Base.establish_connection and retrieved by ActiveRecord::Base.connection
+class LegacyProjectBase < ActiveRecord::Base
+  establish_connection :legacy_database
+  self.abstract_class = true
+# if you dont set abstract_class, Rails will by incident treat this as Single Table Inheritance
+# to point database depending on environemt use:
+class LegacyProjectBase < ActiveRecord::Base
+  establish_connection "legacy_#{Rails.env}"
+  self.abstrac_class = true
+# and in database.yml define legacy_development, legacy_test ...
+# you can pass hash of options
+class TempProject < ActiveRecord::Base
+  establish_connection adapter: 'sqlite3', database: ':memory:'
+# connection pool is simply Hash indexed by ActiveRecord class
+# when a connection is needed, retrieve_connection walks up the class hierarchy until matching connection is found
+
+# access connection via `connection` attribute of any ActiveRecord class
+ActiveRecord::Base.connection.execute('show tables').values
+
+# execute sql file, line by line
+def execute_sql_file(path)
+  File.read(path).split(';').each do |sql|
+    begin
+      ActiveRecord::Base.connection.execute("#{sql}\n") unless sql.blank?
+    rescue ActiveRecord::StatementInvalid
+      $stderr.puts "warning: #{$!}"
+
+# connection methods mixed from ActiveRecord::ConnectionAdapters::DatabaseStatements
+begin_db_transaction
+commit_db_transaction
+delete(sql)
+execute(sql)
+insert(sql)
+# used in oracle and postgres, updates named sequence to maximum value of specified table column
+reset_sequence!(table, column, sequence = nil)
+rollback_db_transaction
+select_all(sql)
+select_one(sql)
+# returns one value, first column of first row
+select_value(sql)
+# returns array of first column values across all the rows
+select_values(sql)
+update(sql)
+
+# other connection methods
+# indicate that connection is ready to perform queries
+active?
+# for example "SQLite"
+adapter_name
+# close connection and open another in its place
+disconnect!
+reconnect!
+raw_connection
+# true for all except SQLite where you cannot use distinct within count
+supports_count_distinct?
+supports_migrations?
+# list of tables, includes also such as `schema_info`
+tables
+# lazy call active? only if it hasn't been called for timeout seconds
+verify!(timeout)
+
+# options to set in initializer
+# :local(default) or :utc
+ActiveRecord::Base.default_timezone
+# :ruby(default) or :sql(database specyfic)
+ActiveRecord::Base.schema_format
+# to store namespace in STI class constant name
+ActiveRecord::Base.store_full_sti_class
