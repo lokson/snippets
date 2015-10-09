@@ -30,8 +30,8 @@ u U - undo (line)
 ctrl+r - redo
 
 :![cmd] - run in shell
-:w [filename] - write
-:r [filename] - insert file content
+:w [path] - write
+:r [path] - insert file content
 :r! [cmd] - insert shell result
 :wq
 :ctrl+d - list avaible
@@ -45,3 +45,33 @@ ctrl+g - status
   /gc - prompt
 :n,ms - between line numbers n and m
 :%s - global
+
+:e [path] - edit
+:bn :bp - buffor next (prev)
+:wqa - write quit all
+:tabe [path] - edit in tab
+gt gT - goto tab (prev)
+
+:set filetype = php
+:set background = dark
+
+ctrl+n - autocomplete
+:set number - line numbers
+:!php % - % is current file
+!map <F5> :!php -q %<CR> - CR is enter
+:imap = amk ala ma kota - replace during insert
+
+ci" - change inside "
+ci)
+ci}
+
+to check:
+- vimcasts.org
+- upcase.com/vim
+
+plugins:
+ctrl-p by kien
+nerdtree by scrooloose
+ag for vim by rking
+vim-rails by tpope
+vim-rspec by thoughbot
