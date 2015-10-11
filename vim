@@ -8,7 +8,7 @@ W E B - word
 goto :
 gg G - file start (end)
 n G - file number
-% - matching brackeg
+% - matching bracket
 / ? - search (rev)
 n N - next (prev)
 ctrl+o - back
