@@ -1,0 +1,16 @@
+# rename last commit
+# also add/rm to last commit
+git commit --amend
+
+# reword other commit messages
+git rebase -i HEAD~4
+
+# rebase on top of master
+# to merge conflicts with master
+git remote add upstream ...
+git fetch upstream
+git checkout feature
+git rebase upstream/master
+# fix conflicts
+git rebase --continue
+git push --force origin feature

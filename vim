@@ -13,6 +13,7 @@ n G - file number
 n N - next (prev)
 ctrl+o - back
 :set ic noic - case ignore
+:noh - turn off highlight until next search
 
 v - visual
 i - insert
@@ -29,7 +30,7 @@ cc c[motion] - change
 u U - undo (line)
 ctrl+r - redo
 
-:![cmd] - run in shell
+![cmd] - run in shell
 :w [path] - write
 :r [path] - insert file content
 :r! [cmd] - insert shell result
@@ -125,3 +126,13 @@ t T - tab open (stay)
 h H - horizontal open (stay)
 v gv - vertical open (stay)
 q - close
+
+:buffers - list
+bufdo bd - close all
+
+K - Ag under cursor
+
+multiple cursors
+ctrl+n - repeat to select
+ctrl+p - undo selection
+ctrl+x - skip selection
