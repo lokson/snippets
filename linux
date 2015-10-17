@@ -1,4 +1,8 @@
-bash, repeat last command
+bash, repeat last command:
 ctrl+p
 !!
 !-1
+
+bg - list background tasks
+fg - bring background to foreground
+ctrl+c - cancel background task
