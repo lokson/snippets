@@ -14,3 +14,6 @@ git rebase upstream/master
 # fix conflicts
 git rebase --continue
 git push --force origin feature
+
+# revert one file
+git checkout commit-hash file/to/restore

@@ -1,3 +1,14 @@
+^o - "Insert Normal" mode (one time)
+
+in insert mode
+^h - backspace
+^w - delete one word
+^u - delete to start of line
+^r* - paste from register *
+^r^p* - paste from register and fix indent
+
+zz - center current line in window
+
 --- NERD TREE essential
 J K - down (up)
 o go - open (stay)
@@ -5,17 +16,83 @@ o go - open (stay)
 C - change tree root
 u U - move root up (stay)
 q - close
+m - mac menu
+i gi - open in split (stay)
+s gs - open in vsplit (stay)
 
 --- CTRL-P essentials
 ctrl+j ctrl+k - navigate (up)
 ctrl+p ctrl+n - previous phrase from history (next)
 ctrl+f ctrl+b - cycle between modes
+ctrl+x ctrl+v - open in split
 
 --- AG essential
 K - Ag under cursor
 e - open and end
 o go - open (stay)
 q - close
+:AgBuffer
+h H - horizontal open (stay)
+v gv - vertical open (stay)
+
+--- Textobj-entire
+ae - entire file content
+ie - file content without leading and trailing empty lines
+
+--- commentary
+gcc - comment out a line
+gc - comment target (gcap - paragraph)
+gcgc - uncomment adjencent lines
+
+--- surround
+ys - surround
+cs - change
+ds - delete
+
+--- surround details
+ysiw] - surround word with []
+yssb yss) - wrap line in ()
+ysiw<em> - surround word with <em></em>
+cs"' - change surround " to '
+cs'<q> - change surround to <q></q>
+cst" - change surround tag to "
+cs]{ - change surround to {} with space
+cs]} - change surround to {} with no space
+ds" - delete surround "
+
+m{sym} - set mark
+`{sym} - navigate to mark
+
+C - change untill end of line
+D - delete untill end of line
+
+viwp - replace word with clipboard
+viw"0p - replace it again
+
+:reg :registers
+"* - selection register
+"+ - clipboard register
+"" - vims default yank/put/change/delete/substitute register
+"_ - back hole register
+"_dw - delete word and copy it into black hole
+"5p - paste from fifth register
+
+:undolist
+:changes
+:earlier count | (n)s | (n)m | (n)h | (n)d
+:earlier (n)f - saves ago
+:later (same options)
+
+screen navigation
+H - go to top
+M - go to middle
+L - go to end
+ctrl+d - forward by half
+ctrl+u - back by half
+ctrl+e - scroll down
+ctrl+y - scroll up
+ctrl+f - scroll down whole page
+ctrl+b - scroll up one page
 
 :s/old/new - substitute
   /g - all in line
@@ -36,8 +113,14 @@ W E B - word
 ^ g_ - first non blank character (last)
 { } - paragraph (end)
 
-ap - a paragraph
-aw - a word
+ap - around paragraph
+aw - around word
+at - around tag (xml)
+i... - inside
+t... - untill
+f... - untill with
+dt_ - delete untill _
+df_ - delete untill _ and delete _ too
 
 g~ - swap case
 gU - make uppercase
@@ -72,19 +155,10 @@ R - replace char
 s - substitute char and insert mode
 S - substitute line and insert mode
 
-registers
-"* - selection register
-"+ - clipboard register
-"" - vims default yank/put/change/delete/substitute register
-"_ - back hole register
-"_dw - delete word and copy it into black hole
-
 l - as motion "this character"
 dl - delete character
 
 ci" ci) ci} - change inside "
-C - change to end (same as $c)
-
 vip - select paragraph
 
 = - autoindent
@@ -156,21 +230,9 @@ comment
 or
 2 x - delete
 
-comment plugin (works with block)
-[count]<leader>ci - toggle comment
-
 h j k l - move
 
 ! - filter{motion} lines trough external programm
-
-screen navigation
-H - go to top
-M - go to middle
-L - go to end
-ctrl+f - forward
-ctrl+b - back
-ctrl+d - forward by half
-ctrl+u - back by half
 
 N% - go to % of file
 
@@ -187,7 +249,7 @@ di' ('word') -> ('')
 :ctrlP [path]
 :ctrlPBuffer
 F5 - purge cache
-ctrl+t ctrl+x - open in tab (split)
+ctrl+t - open in tab
 ctrl+y - create file and parent dir
 ctrl+z ctrl+o - mark multi (open)
 crtl+r - regexp mode
@@ -197,8 +259,6 @@ ctrl+d - search in filename, not full path
 :help NERD_tree.txt
 :NERDTree [path]
 t T - open in tab (stay)
-i gi - open in split (stay)
-s gs - open in vsplit (stay)
 O - recursive open
 x X - close (recursive)
 e - edit dir
@@ -217,7 +277,6 @@ A - zoom
 --- AG other
 :help Ag
 :Ag [options] {pattern} [{dir}]
-:AgBuffer
 :AgAdd
 :AgFromSearch
 :LAg - matches in location list
@@ -225,7 +284,5 @@ A - zoom
 :LagAdd
 :AgFile - search for filenames matching pattern
 t T - tab open (stay)
-h H - horizontal open (stay)
-v gv - vertical open (stay)
 
 
