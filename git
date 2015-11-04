@@ -17,3 +17,6 @@ git push --force origin feature
 
 # revert one file
 git checkout commit-hash file/to/restore
+
+# bash alias needs escaping of (
+gc paypal installation \(wrong credentials?\)

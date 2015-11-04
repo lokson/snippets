@@ -1,3 +1,5 @@
+# new gem
+bundle gem your_new_gem
 
 click_on "Create #{subdata_model.to_s.titleize}"
 

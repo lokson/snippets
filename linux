@@ -6,3 +6,10 @@ ctrl+p
 bg - list background tasks
 fg - bring background to foreground
 ctrl+c - cancel background task
+^z - move to background
+
+pv file | gzip>file.gz - show progress for zip
+touch -t file - update time
+touch -r file1 file2 - make time same as other file 
+
+echo zip file | batch - do something on low system load (not many users)

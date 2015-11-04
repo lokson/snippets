@@ -1,15 +1,50 @@
-^o - "Insert Normal" mode (one time)
+--- Mru
+o - open in vertical split
+O - open in horizontal split
 
+--- Emmet
+html:5 and then ^c,
+
+--- diff
+:Gdiff
+:diffget //2
+:diffupdate
+:Gwrite
+ 
 in insert mode
+^o - "Insert Normal" mode (one time)
 ^h - backspace
 ^w - delete one word
 ^u - delete to start of line
 ^r* - paste from register *
 ^r^p* - paste from register and fix indent
+^r= - insert arythmetic evaluation
 
-zz - center current line in window
+--- CTRL-N
+ctrl-p - one back
+ctrl-x - skip
+v - normal mode
+in visual as normal: c, s
+in normal: i, a, I, A
+
+--- CTRL-P essentials
+^x ^v - open in split
+ctrl+j ctrl+k - navigate (up)
+ctrl+p ctrl+n - previous phrase from history (next)
+ctrl+f ctrl+b - cycle between modes
+
+--- AG essential
+h H - horizontal open (stay)
+v gv - vertical open (stay)
+K - Ag under cursor
+e - open and end
+o go - open (stay)
+q - close
+:AgBuffer
 
 --- NERD TREE essential
+i gi - open in split (stay)
+s gs - open in vsplit (stay)
 J K - down (up)
 o go - open (stay)
 <CR> - open
@@ -17,37 +52,40 @@ C - change tree root
 u U - move root up (stay)
 q - close
 m - mac menu
-i gi - open in split (stay)
-s gs - open in vsplit (stay)
+r R - refresh (root)
 
---- CTRL-P essentials
-ctrl+j ctrl+k - navigate (up)
-ctrl+p ctrl+n - previous phrase from history (next)
-ctrl+f ctrl+b - cycle between modes
-ctrl+x ctrl+v - open in split
 
---- AG essential
-K - Ag under cursor
-e - open and end
-o go - open (stay)
-q - close
-:AgBuffer
-h H - horizontal open (stay)
-v gv - vertical open (stay)
+on selection:
+S - surround
+:norm A',{^v+esc}^i' - append ' to end, escape, go to beginning, insert '
+
+gv - reselect last selection
+>. - indent and repeat
+
+zz - center current line in window
+J - join line
+
+in visual mode
+o - go to other end of selection
+U - uppercase
+Vr- - select every char in row and replace to -
+c - change in every line as block
+$c - change in every line to end
+I A - insert append (not small letters)
 
 --- Textobj-entire
 ae - entire file content
 ie - file content without leading and trailing empty lines
 
---- commentary
-gcc - comment out a line
-gc - comment target (gcap - paragraph)
-gcgc - uncomment adjencent lines
-
 --- surround
 ys - surround
 cs - change
 ds - delete
+
+--- commentary
+gcc - comment out a line
+gc - comment target (gcap - paragraph)
+gcgc - uncomment adjencent lines
 
 --- surround details
 ysiw] - surround word with []
@@ -180,6 +218,8 @@ ctrl+r - redo
 :![cmd] - run in shell
 @: - repeat last bash execute
 :set shellcmdflag=-ic
+:shell - exit to shell
+^z bg - (system) halt, and return
 
 ctrl+a ctrl+x - increase next number in line (previous)
 100ctrl+a - increase by 100
@@ -190,10 +230,14 @@ ctrl+a ctrl+x - increase next number in line (previous)
 :w [path] - write
 :r [path] - insert file content
 :r! [cmd] - insert shell result
+:w! [cmd] - use content as input tu command
 :wq
 :ctrl+d - list avaible
 :help
 :only
+
+:!{cmd} - filter by command
+:2,$! sort -t',' -k2 - sort rows with ',' separated values by second value
 
 ctrl+g - status
 
@@ -232,7 +276,7 @@ or
 
 h j k l - move
 
-! - filter{motion} lines trough external programm
+! - filter{motion} lines trough external program
 
 N% - go to % of file
 
@@ -264,7 +308,6 @@ x X - close (recursive)
 e - edit dir
 P p - root (parent)
 ctrl+J ctrl+K - sibling down (up)
-r R - refresh (root)
 m - menu
 cd - change CWD to selected
 CD - change root to selected
@@ -285,4 +328,55 @@ A - zoom
 :AgFile - search for filenames matching pattern
 t T - tab open (stay)
 
+d2d - delete two rows
+
+in insert mode
+^v{code} - insert char by code
+^vu{code} = insert unicode by hexadecimal
+^vu{nondigit} = insert char literally (ex. <Tab>)
+^k{char1}{char2} - insert chart by digraph (ex. 12 13 << digraphs-default)
+
+ga - show char code at the cursor
+:sort - sort :)
+
+^vjj$A; - select two rows and append ; to them
+
+ex mode
+:5 - go to line 5
+:2,5 - range
+:% - all lines
+:$ - end of file
+:. - current line
+:.,$ - current line to end
+:/</html>/,/<\/html>/ - from pattern to pattern
+:.+1,$-1 - next line to one before last
+:'n,'m - between markers
+
+:5p - print line 5
+:5copy. :5t. - copy line 5 to current
+:t5 - copy current to 5
+:t$ - copy current to end
+:t. - duplicate line (without using register)
+
+@: repeat last command
+
+:5m. - move line 5 to current
+
+normal mode in ex
+:'<,'>normal. - repeat last command in each line of selection 
+:%normal A; - append ; to whole file
+:%normal i// - comment out whole file
+
+ex tab complete
+^d - show possible completions
+^r^w - copy current word to ex
+
+ex command line
+^f - whitch from cmd line to window
+q/ - history of searches
+q: - command line window
+<CR> - execute command in context of last active window
+
+--- fix selection
+hi Visual term=reverse cterm=reverse guibg=Grey
 
