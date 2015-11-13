@@ -43,17 +43,11 @@ q - close
 :AgBuffer
 
 --- NERD TREE essential
-i gi - open in split (stay)
-s gs - open in vsplit (stay)
-J K - down (up)
-o go - open (stay)
-<CR> - open
+s gs - open in vertical split (stay)
+i gi - open in horizontal split (stay)
+m - mac menu
 C - change tree root
 u U - move root up (stay)
-q - close
-m - mac menu
-r R - refresh (root)
-
 
 on selection:
 S - surround
@@ -300,6 +294,11 @@ crtl+r - regexp mode
 ctrl+d - search in filename, not full path
 
 --- NERD TREE other
+J K - down (up)
+o go - open (stay)
+<CR> - open
+q - close
+r R - refresh (root)
 :help NERD_tree.txt
 :NERDTree [path]
 t T - open in tab (stay)
