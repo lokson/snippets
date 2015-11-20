@@ -1,3 +1,30 @@
+--- vim-i18n
+leader z - translate
+leader dt - display translation
+
+--- multiple cursors
+v - exit visual (and press i for insert)
+ctrl+n - repeat to select
+ctrl+p - undo selection
+ctrl+x - skip selection
+
+--- surround
+ys - surround
+cs - change
+ds - delete
+S - in visual
+ysiwb - surround word with ()
+
+ir ar - select ruby block
+ae - entire file content
+ie - file content without leading and trailing empty lines
+
+--- Git show previous version
+:Glog -- %
+]q [q - prev, next (:cprev, cnext)
+:copen - open quickfix
+]Q [Q - oldest, newest
+
 --- Mru
 o - open in vertical split
 O - open in horizontal split
@@ -10,7 +37,7 @@ html:5 and then ^c,
 :diffget //2
 :diffupdate
 :Gwrite
- 
+
 in insert mode
 ^o - "Insert Normal" mode (one time)
 ^h - backspace
@@ -28,7 +55,7 @@ in visual as normal: c, s
 in normal: i, a, I, A
 
 --- CTRL-P essentials
-^x ^v - open in split
+^v ^x - open in split
 ctrl+j ctrl+k - navigate (up)
 ctrl+p ctrl+n - previous phrase from history (next)
 ctrl+f ctrl+b - cycle between modes
@@ -48,6 +75,7 @@ i gi - open in horizontal split (stay)
 m - mac menu
 C - change tree root
 u U - move root up (stay)
+o go - open (stay)
 
 on selection:
 S - surround
@@ -66,15 +94,6 @@ Vr- - select every char in row and replace to -
 c - change in every line as block
 $c - change in every line to end
 I A - insert append (not small letters)
-
---- Textobj-entire
-ae - entire file content
-ie - file content without leading and trailing empty lines
-
---- surround
-ys - surround
-cs - change
-ds - delete
 
 --- commentary
 gcc - comment out a line
@@ -257,11 +276,6 @@ to check:
 :buffers - list
 bufdo bd - close all
 
-multiple cursors
-ctrl+n - repeat to select
-ctrl+p - undo selection
-ctrl+x - skip selection
-
 comment
 1 visual block (ctrl+v)
 2 I#<esc> - insert #
@@ -294,8 +308,7 @@ crtl+r - regexp mode
 ctrl+d - search in filename, not full path
 
 --- NERD TREE other
-J K - down (up)
-o go - open (stay)
+j K - down (up)
 <CR> - open
 q - close
 r R - refresh (root)
@@ -362,7 +375,7 @@ ex mode
 :5m. - move line 5 to current
 
 normal mode in ex
-:'<,'>normal. - repeat last command in each line of selection 
+:'<,'>normal. - repeat last command in each line of selection
 :%normal A; - append ; to whole file
 :%normal i// - comment out whole file
 
@@ -379,3 +392,5 @@ q: - command line window
 --- fix selection
 hi Visual term=reverse cterm=reverse guibg=Grey
 
+--- insert nonbreakable space
+^k<space><space>
