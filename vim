@@ -1,3 +1,19 @@
+--- CTRL-P essentials
+F7 - crear MRU list
+^v ^x - open in split
+^j ^k - navigate (up)
+^p ^n - previous phrase from history (next)
+^f ^b - cycle between modes
+
+--- zoom win
+<c-w>o - togglee windows fullscreen
+
+--- vim trailing whitespaces
+:FixWhitespace
+
+--- vim pasta
+]p ]P - adujst indentation
+
 --- vim-i18n
 leader z - translate
 leader dt - display translation
@@ -25,18 +41,14 @@ ie - file content without leading and trailing empty lines
 :copen - open quickfix
 ]Q [Q - oldest, newest
 
---- Mru
-o - open in vertical split
-O - open in horizontal split
-
 --- Emmet
-html:5 and then ^c,
+html:5 and then ^y,
 
 --- diff
 :Gdiff
 :diffget //2
 :diffupdate
-:Gwrite
+Gwrite
 
 in insert mode
 ^o - "Insert Normal" mode (one time)
@@ -53,12 +65,6 @@ ctrl-x - skip
 v - normal mode
 in visual as normal: c, s
 in normal: i, a, I, A
-
---- CTRL-P essentials
-^v ^x - open in split
-ctrl+j ctrl+k - navigate (up)
-ctrl+p ctrl+n - previous phrase from history (next)
-ctrl+f ctrl+b - cycle between modes
 
 --- AG essential
 h H - horizontal open (stay)
