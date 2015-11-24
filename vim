@@ -1,9 +1,27 @@
+--- NERD TREE essential
+s gs - split | (stay)
+i gi - split - (stay)
+m - mac menu
+C - change tree root
+u U - move root up (stay)
+o go - open (stay)
+
 --- CTRL-P essentials
-F7 - crear MRU list
-^v ^x - open in split
+^v - split |
+^x - split -
+F7 - clear MRU list
 ^j ^k - navigate (up)
 ^p ^n - previous phrase from history (next)
 ^f ^b - cycle between modes
+
+--- AG essential
+v gv - split | (stay)
+h H - split - (stay)
+K - Ag under cursor
+e - open and end
+o go - open (stay)
+q - close
+:AgBuffer
 
 --- zoom win
 <c-w>o - togglee windows fullscreen
@@ -65,23 +83,6 @@ ctrl-x - skip
 v - normal mode
 in visual as normal: c, s
 in normal: i, a, I, A
-
---- AG essential
-h H - horizontal open (stay)
-v gv - vertical open (stay)
-K - Ag under cursor
-e - open and end
-o go - open (stay)
-q - close
-:AgBuffer
-
---- NERD TREE essential
-s gs - open in vertical split (stay)
-i gi - open in horizontal split (stay)
-m - mac menu
-C - change tree root
-u U - move root up (stay)
-o go - open (stay)
 
 on selection:
 S - surround
