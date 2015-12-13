@@ -1,3 +1,42 @@
+--- read only registers:
+"+ - clipboard
+". - last insert
+"% - current file path
+": - last command
+
+--- registers
+"0 - latest yank
+"1 - previous yank
+"" - default register
+"_ - black hole register
+
+qx{changes}q - record macro x
+@x - play macro x
+
+ir ar - select ruby block
+
+--- Quick fix
+]q [q - prev, next (:cprev, cnext)
+:copen - open quickfix
+]Q [Q - oldest, newest
+
+--- AG essential
+v gv - split | (stay)
+h H - split - (stay)
+K - Ag under cursor
+e - open and end
+o go - open (stay)
+q - close
+:AgBuffer
+
+f{char} F{char} - go to char (prev)
+; , - repeat last fFtT (back)
+
+gv - select last selection
+gn - select searched phrase
+
+cib ciB - change in () or {}
+
 --- NERD TREE essential
 s gs - split | (stay)
 i gi - split - (stay)
@@ -14,14 +53,17 @@ F7 - clear MRU list
 ^p ^n - previous phrase from history (next)
 ^f ^b - cycle between modes
 
---- AG essential
-v gv - split | (stay)
-h H - split - (stay)
-K - Ag under cursor
-e - open and end
-o go - open (stay)
-q - close
-:AgBuffer
+--- substitute
+/my complicated regexp     " Highlighted as you enter characters
+:%s//replace with this/    " You don't have to type it again
+:s/old/new - substitute
+  /g - all in line
+  /gc - prompt
+:n,ms - between line numbers n and m
+:%s - global
+:%s/old/new/gc - global in each line with prompt
+& - repeat last substitute
+ctrl+o ctrl+i - previous location (next)
 
 --- zoom win
 <c-w>o - togglee windows fullscreen
@@ -49,15 +91,11 @@ ds - delete
 S - in visual
 ysiwb - surround word with ()
 
-ir ar - select ruby block
 ae - entire file content
 ie - file content without leading and trailing empty lines
 
 --- Git show previous version
 :Glog -- %
-]q [q - prev, next (:cprev, cnext)
-:copen - open quickfix
-]Q [Q - oldest, newest
 
 --- Emmet
 html:5 and then ^y,
@@ -88,7 +126,6 @@ on selection:
 S - surround
 :norm A',{^v+esc}^i' - append ' to end, escape, go to beginning, insert '
 
-gv - reselect last selection
 >. - indent and repeat
 
 zz - center current line in window
@@ -152,16 +189,6 @@ ctrl+y - scroll up
 ctrl+f - scroll down whole page
 ctrl+b - scroll up one page
 
-:s/old/new - substitute
-  /g - all in line
-  /gc - prompt
-:n,ms - between line numbers n and m
-:%s - global
-:%s/old/new/gc - global in each line with prompt
-& - repeat last substitute
-
-ctrl+o ctrl+i - previous location (next)
-
 >> >{motion} >G - indent (to end of file)
 
 n motions:
@@ -191,9 +218,6 @@ gg G - file start (end)
 
 % - matching bracket
 
-f{char} F{char} - go to char (prev)
-; , - repeat f F (back)
-
 * # - search word under the cursor (previous)
 / ? - search (rev)
 n N - next (prev)
@@ -222,9 +246,6 @@ vip - select paragraph
 = - autoindent
 =ip - fix indentation in paragraph
 gg=G - fix indentation in whole file
-
-qx{changes}q - record macro x
-@x - play macro x
 
 yy y[motion] - copy
 p P - paste (before)

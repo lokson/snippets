@@ -1,3 +1,60 @@
+# count number of apache lines in ps
+# grep -v grep: cut line with grep
+ps aux | grep apache | grep -v grep | wc -l
+# swap word in last command and execute
+# in this case ^ is not a controll, but typed char
+^ls^rm
+# swap letters (czeski błąd)
+^t
+# store command, go back to it
+^u ^y
+# clear screen
+^l
+# repeat last argument
+esc .
+# create dir recurrential
+mkdir -p
+
+# create user
+useradd name
+passwd name
+
+# ember without git
+ember new frontend --skip-git
+
+# update npm
+npm install npm -g
+# update node
+npm install n -g
+n stable
+# update in package.json
+npm install salita -g
+salita
+# update in bower.json
+npm install bower-update -g
+bower-update
+# ember update
+bower install ember --save
+# check for updates
+bower list
+
+# install ember-cli-rails
+gem "ember-cli-rails"
+rails generate ember-cli:init
+npm install --save-dev ember-cli-rails-addon
+# config/routes.rb
+Rails.application.routes.draw do
+  mount_ember_app :frontend, to: "/"
+end
+bower install ember-data#2.0.0 --save
+bower install ember#2.0.0 --save
+ember install ember-cli-coffeescript
+ember install ember-cli-emblem
+ember install liquid-fire
+
+# ember build
+ember build
+
 # new gem
 bundle gem your_new_gem
 

@@ -254,7 +254,7 @@ get 'items/list/*specs', controller: 'items', action: 'list'
 params[:specs].split('/')
 
 # named routes
-name_url 
+name_url
 name_path - just a part
 # custom name
 get 'help' => 'help#index', as: 'help'
