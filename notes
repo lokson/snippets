@@ -1,3 +1,542 @@
+# --- Java 8 the Good Parts video
+# rvm for java jdks
+jenv
+jenv versions
+jenv local oracle64-1.7.0.40
+
+# something like yodatime is now avaible:
+void immutable()
+{
+	LocalTime aTime = LocalTime.now();
+	print("now: %s", aTime);
+	LocalTime newTime = aTime.plusMinutes(16);
+	print("now %s, later: %s", aTime, newTime);
+}
+
+# localtime has no sense in a plane
+
+# new time
+private void localTime()
+{
+	LocalDate today = LocalDate.now();
+	LocalDate yesterday = today.minusDays(1);
+	LocalDateTime localDateTime = yesterday.atTime(11, 30);
+	LocalDateTime earlMorning = LocalDate.of(2013, 9, 22).atStartOfDay();
+}
+
+# time zones
+void flightTime()
+{
+	ZoneId LHR = ZoneId.of("Europe/London");
+	ZoneId SFO = ZoneId.of("America/Los_Angeles");
+	LocalDate date = LocalDate.of(2013, Month.SEPTEMBER, 14);
+	LocalTime takeoff = LocalTime.of(12, 50);
+	LocalTime landing = LocalTime.of(16, 20);
+	Duration flightTime = Duration.between(ZonedDateTime.of(date, takeoff, LHR), ZonedTime.of(date, landing, SFO))
+	System.out.println("Flight time: " + flightTime);
+}
+
+# ISO is by default
+# no more this:
+new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+# now its:
+void formatting()
+{
+  # 2013-09-22
+  DateTimeFormatter.ISO_DATE.format(LocalDateTime.of(2013, 9, 22, 10, 03));
+  # 2013-09-22T10:30:00
+  DateTimeFormatter.ISO_DATE_TIME.format(LocalDateTime.of(2013, 9, 22, 10, 30));
+}
+
+# betterIO, list directories
+void betterIO()
+{
+  BufferedReader bufferedReader;
+  Path path;
+  Stream<String> lines = bufferedReader.lines();
+  Stream<String> lines = Files.lines(Path, Charset);
+  Stream<Path> paths = Files.list(Path);
+  Stream<Path> paths = Files.find(Path, depth, BiPredicate, FileVisitOption...)
+  Stream<Path> paths = Files.walk(Path, depth, fileVisitOption...)
+  Stream<Path> paths = Files.walk(Path, fileVisitOption...)
+}
+
+# maps
+compute()
+{
+  map.compute(aKey, new BiFunction<Key, Value, Value>() {
+    @Override
+    public Value apply(Key key, Value value)
+    {
+      # ...
+    }
+  });
+
+
+  # if key is absent
+  map computeIfAbsent(aKey, new Function<Key, Value>() {
+    @Override
+    public Value apply(Key key)
+    {
+      # ...
+    }
+  });
+
+  # used to replace values in map
+  map.computeIfPresent(aKey, new BiFunction<Key, Value, Value>() {
+    @Override
+    public Value apply(Key key, Value value)
+    {
+      # ...
+    }
+  });
+}
+
+# alt, maps compute with labdas
+void computeWithLambdas()
+{
+  Map<Key, Value> map = // ...
+  map.computeIfAbsent(aKey, key -> {
+    //;
+  });
+  map.computeIfPresent(aKey, (key, value) -> {
+    //;
+  })
+}
+
+# more
+void moreMaps()
+{
+  Map<Key, Value> map = null;
+  map.putIfAbsent(K, V);
+  map.remove(Object, Object);
+  map.replace(K, V);
+  # compare and swap
+  map.replace(K, V1, V2);
+  map.replaceAll(BiFunction);
+  map.getOrDefault(K, V);
+  map.merge(K, V, BiFunction);
+}
+
+# parallel
+parallelSetAll() {
+  int[] array = new int[8];
+  AtomicInteger i = new AtomicInteger();
+  Arrays.parallelSetAll(array, operand -> i.incrementAndGet());
+}
+# fork join has optimalisations on hardware level
+void parallelPrefix()
+{
+  int[] array = { 1, 2, 4, 8 };
+  Arrays.parallelPrefix(array, (left, right) -> {
+    return left + right;
+  });
+}
+
+# labdas
+# lambda burger
+() -> {}
+# they dont create anonymous classes
+# they dont allocate objects
+# they are fast
+(Thing t) -> {}
+(Thing t, More m) -> {}
+
+# compiler type inference
+# evalutes to endtoend with: int as result type, t as end
+GetNum _ = (t) -> {42}
+GetNum _ = (t) -> 42
+GetNum _ = t -> 1337
+
+# target typing
+interface Adder {
+  void add(int a, int b);
+}
+# you can skip the ; sign
+# no return
+# infers into (int, int) => int
+Adder function = (int a, int b) -> { a + b };
+# shorter
+# (you can skip {} sometimes)
+Adder function = (a, b) -> a + b;
+
+# functional interfaces
+# this is only helper annotation, not required, checks our intent
+@FunctionalInterface
+interface Adder {
+  int add(int a, int b);
+  # this will abstract the method
+  default void vat() { /* nothing */ }
+}
+
+# java8 multiple inheritance?
+# yes - because it has inheritance of method body
+# no - because it has no inheritance of state
+# ... which is maybe a good thing
+@FunctionalInterface
+interface Adder {
+  default int add(int a, int b) { return a + b; }
+}
+@FunctionalInterface
+interface Divider {
+  default double divide(int a, int b) { return a / b; }
+}
+class Calculator implements Adder, Divider {
+  public double calc(int a, int b, int c) {
+    return divide(add(a, b), c);
+  }
+}
+# resolve ambiguity manually
+interface A {
+  default void doIt() {}
+}
+interface B {
+  default void doIt() {}
+}
+class Thing implements A, B {
+  @Override
+  public void doIt() {
+    A.super.doIt();
+  }
+}
+
+# iterable
+package java.lang;
+@FunctionalInterface
+public interface Iterable<T> {
+  Iterator<T> iterator();
+  default void forEach(Consumer<? super T> action) {
+    Objects.requireNonNull(action);
+    for (T t: this) {
+      action.accept(t);
+    }
+  }
+}
+
+# without lambda
+void withoutLambda()
+{
+  button.addActionListener(new AbstractAction()
+  {
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+      System.out.println("example");
+    }
+  });
+}
+# with lambda
+void withLambda()
+{
+  button.addActionListener((e) ->
+  {
+    System.out.println("example");
+  });
+}
+
+# composing functions
+void composingFunctions()
+{
+  // given
+  Funciton<Integer, Integer> timesTwo = n -> n * 2;
+  Funciton<Integer, Integer> plusOne = n -> n + 1;
+
+  // both do the same
+  Function<Integer, Integer> multiplyThenAdd = timesTwo.andThen(plusOne);
+  Function<Integer, Integer> multiplyThenAdd = plusOne.compose(timesTwo);
+
+  int result = multiplyThenAdd.apply(1);
+  assertThat(result).isEqualTo(3);
+}
+
+# less boilerplate
+# before
+void transform()
+{
+  Iterables.transform(
+    newArrayList(1, 2, 3),
+    new Function<Integer, String>()
+  {
+    @Override
+    public String apply(Integer input)
+    {
+      return input.toString();
+    }
+  });
+}
+# after
+void noMoreTransform()
+{
+  items.stream().map(i -> i.toString());
+}
+
+items.stream().map(Item::getName);
+
+# streams
+# items.stream(). ...
+filter(predicate);
+map(mapper);
+mapToInt(mapper);
+flatMap(mapper);
+distinct();
+sorted();
+sorted(comparator);
+peek(consumer);
+limit(maxSize);
+forEach(func);
+
+# internal iteration
+void internalIteration()
+{
+  List<Thing> things = ...;
+  things.forEach(System.out::println);
+}
+
+# parallel iteration
+void parallelItaration()
+{
+  List<Thing> things = ...;
+  things.parallelStream().forEach(System.out::println);
+}
+
+# streams are lazy
+# prints nothing
+List<Integer> is = newArrayList(1, 2, 3);
+is.stream()
+  .map(a -> printAndReturn("A", a))
+  .map(a -> printAndReturn("B", a));
+
+# one iteration!
+# prints:
+# A1
+# B1
+# A2
+# B2 ...
+List<Integer> is = newArrayList(1, 2, 3);
+is.stream()
+  .map(a -> printAndReturn("A", a))
+  .map(a -> printAndReturn("B", a))
+  .collect(toList());
+
+# method handles ~ function pointers
+class Person {
+  String getName();
+}
+Supplier<String> method = Person::getName
+@FunctionalInterface
+public interface Supplier<T> {
+  T get();
+}
+# referring to methods
+void refferingToMethods()
+{
+  String name = Person.getName();
+  String name = applyTo(heinz, Person::getName);
+
+  String normalName = heinz.getName();
+  String magicName = applyTo(heinz, Person::getName);
+
+  public <T, R> R applyTo(T obj, Function<T, R> function) {
+    return function.apply(obj);
+  }
+}
+
+# java.util.function.*
+Supplier<T>
+=> T
+
+Consumer<T>
+T => void
+
+Predicate<T>
+T => Boolean
+
+BiPredicate<T1, T2>
+(T1, T2) => Boolean
+
+Function<T, R>
+T => R
+
+BiFunction<T1, T2, R>
+(T1, T2) => R
+# and more
+
+# in order to refer to:
+String doThing(String a, String b, String c, Integer d);
+# you have to:
+@FunctionalInterface
+interface Function4<T1, T2, T3, T4, R> {
+  R apply(T1 a, T2 b, T3 c, T4 d);
+}
+Function4<String, String, String, Integer, String> fun = Example::doThing;
+
+# ---- groovy shell video
+# run groovy
+groovy Test.groovy
+#!/usr/bin/env groovy
+# with dependencies on classpath
+#!/usr/bin/env groovy -cp some.jar
+#!/usr/bin/env groovy -cp ${HOME}/some.jar
+#!/usr/bin/env groovy -cp ${HOME}/some.jar
+
+# groovyserv to speed up invocation
+gvm install groovyserv
+groovyclient MyScript.groovy
+
+# in groovy Classname == Filename
+# for external references use old import
+
+# shell commands
+"mkdir foo".execute()
+# better if argument is computed
+["mkdir", "foo"].execute()
+# result access
+println "ls".execute().text
+"ls".execute().inputStream.eachLine { println it }
+
+# process controll
+Process process = "mkdir foo".execute()
+process.waitFor()
+# error handling
+int exitValue = process.exitValue()
+  if(!exitValue) {
+    # error handling here
+  }
+# alternative
+if(!"mkdir foo".execute().waitFor()) {
+  # error handling here
+}
+
+# long commands
+"grep pattern".execute().waitForOrKill(1000)
+# alternative
+def process = "myLongRunningCommand".execute()
+  # ...
+process.destroy()
+
+# process output
+Process process = "myCommand".execute()
+def out = new StringBuffer()
+def err = new StringBuffer()
+process.waitForProcessOutput(out, err)
+if(out.size() > 0) println out
+if(err.size() > 0) println err
+
+def p = "rm -f foo.tmp".execute([], tmpDir)
+# prevent blocking by small buffer
+p.consumeProcessOutput()
+p.waitFor()
+
+# piping
+"less temp.sh".execute().pipeTo("grep Detected".execute()).text
+# alternative
+def proc1 = "less tmp.sh".execute()
+def proc2 = "grep Detected".execute()
+proc1 | proc2
+println proc2.text
+
+# wildcards walkaround
+"sh -c ls *.java".execute()
+
+# some groovy code
+if(opt.'?')
+  cli usage()
+else if (opt.v)
+  println "Version: 1.0.0"
+else {
+  if (opt.config)
+    println "Configuration: $opt.config"
+      if(opt.D) {
+        println "Custom properties:"
+        println opt.Ds.collate(2).collect { it.join('=') }.join('\n')
+      }
+			def home = System.properties.'user.dir'
+			if (opt.s || opt.source)
+				home = opt.s ?: opt.source
+		  println "Working on files:"
+			opt.arguments().each println "$home/$it"
+}
+
+# grape - groovy adaptable packaging engine
+@Grab(group='org.springframework', module='spring-orm', version='3.2.5.RELEASE')
+@Grab('org.springframework:spring-orm:3.2.5.RELEASE')
+import org.springframework.jdbc.core.JdbcTemplate
+# cache directory: ~/.groovy/grape
+# multiple dependencies
+@Grapes([
+  @Grab(group='commons-primitives', module='commons-primitives', version='1.0'),
+  @Grab(group='org.ccil.cowan.tagsoup', module='tagsoup', version='0.9.7')
+])
+class Example {
+  # ...
+}
+# repositories
+# configuration: /.groovy/grapeConfig.xml
+# grape cache: ~/.groovy/grapes
+# maven local: ~/.m2/repository
+
+# JCenter (includes Maven Central)
+# http://jcenter.bintray.com
+
+# http://repository.codehaus.org
+# http;//www.ibiblio.org
+# http:/download.java.net/maven/2
+@GrapResolver(name='restlet', root='http://maven.restlet.org/')
+@Grab(group='org.restlet', module='org.restlet', version='1.1.6')
+# grabconfig
+@GrabConfig(systemClassLoader=true)
+@Grab(group='mysql', module='mysql-connector-java', version='5.1.6')
+# systemClassLoader
+# initContextClassLoader - current thread
+# autoDownload
+# disableChecksums
+
+
+# ---
+
+# junit build.gradle
+apply plugin: 'java'
+dependencies {
+  testCompile 'junit:junit:4.12'
+}
+
+# minimal groovy application
+# app.groovy
+@RestController
+class ThisWillActuallyRun {
+  @RequestMapping("/")
+  String home() {
+    return "Hello World!"
+  }
+}
+# run
+spring run app.groovy
+# check
+curl localhost:8080
+
+# run ~/examples/spring-boot-gradle-starter/
+gradle runJar
+# with reinstall
+gradlew runJar
+
+# install spring boot cli
+sdk install springboot
+spring help
+
+# gradle
+brew install gradle
+
+# in build.gradle
+apply plugin: 'jetty'
+apply plugin: 'java'
+
+gradle tasks
+gradle build
+gradle jettyRun
+
+# list largest directories
+sudo du -a / | sort -n -r | head -n 500
+
 # count number of apache lines in ps
 # grep -v grep: cut line with grep
 ps aux | grep apache | grep -v grep | wc -l
@@ -15,9 +554,240 @@ esc .
 # create dir recurrential
 mkdir -p
 
+# iterm
+cmd+d cmd+D - split horizontal (vertical)
+cmd+<CR> - fullscreen
+cmd+/ - highlight cursor
+
+# capybara
+Copyright zhengjia
+https://gist.github.com/zhengjia/428105
+
+=Navigating=
+    visit('/projects')
+    visit(post_comments_path(post))
+
+=Clicking links and buttons=
+    click_link('id-of-link')
+    click_link('Link Text')
+    click_button('Save')
+    click('Link Text') # Click either a link or a button
+    click('Button Value')
+
+=Interacting with forms=
+    fill_in('First Name', :with => 'John')
+    fill_in('Password', :with => 'Seekrit')
+    fill_in('Description', :with => 'Really Long Text…')
+    choose('A Radio Button')
+    check('A Checkbox')
+    uncheck('A Checkbox')
+    attach_file('Image', '/path/to/image.jpg')
+    select('Option', :from => 'Select Box')
+
+=scoping=
+    within("//li[@id='employee']") do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+    within(:css, "li#employee") do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+    within_fieldset('Employee') do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+    within_table('Employee') do
+      fill_in 'Name', :with => 'Jimmy'
+    end
+
+=Querying=
+    page.has_xpath?('//table/tr')
+    page.has_css?('table tr.foo')
+    page.has_content?('foo')
+    page.should have_xpath('//table/tr')
+    page.should have_css('table tr.foo')
+    page.should have_content('foo')
+    page.should have_no_content('foo')
+    find_field('First Name').value
+    find_link('Hello').visible?
+    find_button('Send').click
+    find('//table/tr').click
+    locate("//*[@id='overlay'").find("//h1").click
+    all('a').each { |a| a[:href] }
+
+=Scripting=
+    result = page.evaluate_script('4 + 4');
+
+=Debugging=
+    save_and_open_page
+
+=Asynchronous JavaScript=
+    click_link('foo')
+    click_link('bar')
+    page.should have_content('baz')
+    page.should_not have_xpath('//a')
+    page.should have_no_xpath('//a')
+
+=XPath and CSS=
+    within(:css, 'ul li') { ... }
+    find(:css, 'ul li').text
+    locate(:css, 'input#name').value
+    Capybara.default_selector = :css
+    within('ul li') { ... }
+    find('ul li').text
+    locate('input#name').value
+
+# debug gulp task
+node-debug /usr/local/bin/gulp test
+
+# linux
+bash, repeat last command:
+ctrl+p
+!!
+!-1
+
+bg - list background tasks
+fg - bring background to foreground
+ctrl+c - cancel background task
+^z - move to background
+
+pv file | gzip>file.gz - show progress for zip
+touch -t file - update time
+touch -r file1 file2 - make time same as other file 
+
+echo zip file | batch - do something on low system load (not many users)
+
 # create user
 useradd name
 passwd name
+
+# close postgres session
+SELECT pg_terminate_backend(pg_stat_activity.pid)
+FROM pg_stat_activity
+WHERE pg_stat_activity.datname = 'TARGET_DB'
+  AND pid <> pg_backend_pid();
+
+# wee chat irc
+How can I filter join/part/quit messages on IRC channels?
+With smart filter (keep join/part/quit from users who spoke recently):
+/set irc.look.smart_filter on
+/filter add irc_smart * irc_smart_filter *
+
+/nick kapustka
+
+F9/F10 - scroll title
+F11/F12 - scroll users
+
+nick<tab> message - message someone
+
+/query nick<tab> - private message
+/close
+
+/join #javascript,#ror - join multiple
+alt+left alt-right - to navigate tabs
+
+ctrl+x - navigate through servers
+
+/key list - shorcuts
+/exit
+
+/script
+game - type to filter
+alt+i - install
+alt+r - uninstall
+
+# vadim book notes
+# inside controller
+render json: Post.all
+# other are file:, template:, text:, xml:, js:
+
+# prawn - pdf writer library
+# drawback: cannot create pdf from html
+
+rails plugin new pdf_renderer
+# creates:
+# test/dummy - rails application to run tests
+# pdf_renderer.gemspec
+# lib/pdf_renderer.rb - this will be `require`d if target app adds gem to Gemfile
+# lib/pdf_renderer/version.rb - referenced in gemspec as PdfRenderer::Version
+# Gemfile - links reads dependencies from gemspec
+# Rakefile - list tasks for plugin by standard rake -T
+
+# booting dummy application
+# 1. test/dummy/config/boot.rb sets $LOAD_PATH
+# 2. test/dummy/config/application.rb loads dependencies
+# 3. test/dummy/config/environment.rb initializes application
+
+rake test
+
+# renderer is hook for render method
+
+# inside gemspec
+s.add_dependency "prawn", "0.12.0"
+
+# test prawn in irb
+require "prawn"
+pdf = Prawn::Document.new
+pdf.text("A PDF in four lines of code")
+pdf.render_file("sample.pdf")
+# will create pdf in directory in which irb started
+
+get '/home' => 'home#index', as: :home
+
+# test for pdf response
+assert_equal "binary", headers["Content-Transfer-Encoding"]
+assert_equal "attachment; filename=\"contents.pdf\"", headers["Content-Disposition"]
+assert_equal "application/pdf", headers["Content-Type"]
+
+# Custom renderer (lib/pdf_renderer.rb)
+pdf = Prawn::Document.new
+pdf.text render_to_string(options)
+send_data(pdf.render, filename: "#{filename}.pdf", disposition: "attachment")
+
+# check test app in browser
+cd test/dummy
+rails s
+http://localhost:3000/home.pdf
+
+# ActionMailer and ActionController have common base: AbstractController
+# includable modules (for any object)
+AbstractController::Rendering
+AbstractController::Layouts - support :layout option in render
+ActionController::Rendering - check for DoubleRenderError and support :location, :status and :content_type options
+ActionController::Renderers - api to write custom renderers
+ActionController::Instrumentation - measure time in rendering stack
+ActionController::Streaming - support :stream option
+
+# implementation of render
+def render(*args, &block)
+  options = _normalize_render(*args, &block)
+  self.response_body = render_to_body(options)
+end
+
+def _normalize_render(*args, &block)
+  options = _normalize_args(*args, &block) # render(:new) becomes render(action: 'new')
+  _normalize_options(options)
+  options
+end
+
+def render_to_body(options = {})
+  _process_options(options) # non template options like `render status: 401`
+  _render_template(options)
+end
+
+# ActionView::Base is context for template evaluation
+# it has methods like link_to
+# it gets assigns by view_assigns
+
+# Controller that does not send any ssigns to the view
+class UsersController < AplicationController
+  def view_assigns
+    {}
+  end
+end
+
+# pdf libraries
+# Prawn
+# Prince XML
+# Flying Saucer (in java, port to JRuby)
 
 # ember without git
 ember new frontend --skip-git

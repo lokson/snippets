@@ -422,3 +422,21 @@ hi Visual term=reverse cterm=reverse guibg=Grey
 
 --- insert nonbreakable space
 ^k<space><space>
+
+--- not used really ...
+--- grails-vim
+<leader>gu - UrlMappings.groovy
+<leader>gt - UrlMappingsTests.groovy
+<leader>gc - controller
+<leader>gd - model
+<leader>gv - view
+<leader>gs - service
+- controller
+'c - Jumps to "Create" action
+'d - Jumps to the "Delete" action
+'e - "Edit" action
+'h - "Show" action
+'i - "Index" action
+'l - "List" action
+'s - "Save" action
+'u - "Update" action
