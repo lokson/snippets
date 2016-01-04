@@ -1,3 +1,26 @@
+:set tw=50
+:set nowrap
+:set textwidth=50
+:set wrap
+
+--- sort on range
+:'<,'>sort
+sort u - shell sorth
+sort! - reverse
+sort n - numeric
+
+--- eclim
+:PingEclim
+:EclimValidate
+:ProjectCreate /Users/lokson/my_project -n groovy java <tab completion>
+:ProjectList
+:ProjectInfo
+:ProjectInfo my_project
+:ProjectOpen my_project
+- it is required to register source directories, using file:
+- /path/to/my-project.classpath
+:JavaMove to-package
+
 --- read only registers:
 "+ - clipboard
 ". - last insert

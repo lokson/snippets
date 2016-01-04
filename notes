@@ -1,3 +1,156 @@
+# create eclipse (or eclim) from gradle repo
+gradle eclipse
+
+# bash for loop
+for f in `f svg`; do cp $f ~/dso/app/assets/images/; done
+
+# --- SpringBoot in action book
+# minimal application
+@RestController
+class HelloController {
+  @RequestMapping("/")
+  def hello() {
+    return "Hello World"
+  }
+}
+# run
+spring run HelloController.groovy
+
+# common thing
+@Bean
+public JdbcTemplate jdbcTempate(DataSource datasource) {
+  return new JdbcTemplate(dataSource);
+}
+@Bean
+public DataSource dataSource() {
+  return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScripts('schema.sql', 'data.sql').build();
+}
+
+# shell completion for spring-cli
+~/.gvm/springboot/current/shell-completion/bash/spring
+
+# add as build dependency
+# spring boot "web" starter:
+# org.springframework.boot:spring-boot-starter-web
+
+# init a project in spring-cli
+spring init
+# dependencies
+spring init -dweb,jpa,security
+# maven is default
+spring init --build gradle
+# by default it downloades zip, to extract it to targetdir use:
+spring init ... targetdir
+# or use current directory, . (--extract):
+spring init ... -x
+# default build is jar, to change it (--packaging):
+spring init -p war
+# help
+spring help init
+# help with list
+spring init -l
+
+# new application
+spring init -dweb,data-jpa,h2,thymeleaf --build gradle readinglist
+# cli doesn't let you specify project root package or name
+# change manualy:
+# DemoApplication.java -> ReadingListApplication.java
+# java.com.example -> java.readinglist
+# java/com/example -> java/readinglist
+# run
+grails bootRun
+# 404 at this point is normal
+http://localhost:8080
+
+# application code
+src/main/java/
+# resources
+src/main/resources/
+# test code
+src/main/test/
+
+# both bootstrap and configuration class
+@SpringBootApplication
+public class ReadingListApplication {
+  public static void main(String[] args) {
+    # its possible to run it in cli, args are passed
+    SpringApplication.run(ReadingListApplication.class, args);
+  }
+}
+
+@SpringBootApplication
+# enables component-scanning and auto-configuration
+# is same as:
+# declare java-based configuration
+@Configuration
+# component auto discovery
+@ComponentScan
+# enable spring auto-configuration
+@EnableAutoConfiguration
+
+# test file
+package readinglist;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+// load contex via Spring Boot
+// sometimes @ContextConfiguration is used here
+@SpringApplicationConfiguration(classes = ReadingListApplication.class)
+@WebAppConfiguration
+public class ReadingListApplicationTests {
+
+  @Test
+  public void contextLoads() {
+  }
+
+}
+
+# application.properties
+# is optional, it can be removed
+# change port
+server.port=8000
+
+# file application.properties is loaded by the fact that it exists
+
+# build.gradle
+compile('org.springframework.boot:spring-boot-starter-web')
+compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+compile('org.springframework.boot:spring-boot-starter-data-jpa')
+runtime('com.h2database:h2')
+# old alternative, use:
+compile('org.springframework:spring-web:4.1.6.RELEASE')
+compile('org.thymeleaf:thymeleaf-spring4:2.1.4.RELEASE')
+compile('org.springframework.data:spring-data-jpa:1.8.0.RELEASE')
+compile('org.hibernate:hibernate-entitymanager:jar:4.3.8.Final')
+compile('com.h2database:h2:1.4.187')
+
+# in shell, print a tree
+gradle dependencies
+mvn dependency:tree
+
+# add
+compile("com.fasterxml.jackson.core:jackson-databind:2.3.1")
+
+# remove
+compile("org.springframework.boot:spring-boot-starter-web") {
+  exclude group: 'com.fasterxml.jackson.core'
+}
+
+# replace (this can be used to downgrade)
+compile("org.springframework.boot:spring-boot-starter-web") {
+  exclude group: 'com.fasterxml.jackson.core'
+}
+compile("com.fasterxml.jackson.core:jackson-databind:2.3.1")
+
+# springboot has about 200 auto-configuration rules
+
+# --- END SpringBoot in action book
+
 # --- Java 8 the Good Parts video
 # rvm for java jdks
 jenv
@@ -651,7 +804,7 @@ ctrl+c - cancel background task
 
 pv file | gzip>file.gz - show progress for zip
 touch -t file - update time
-touch -r file1 file2 - make time same as other file 
+touch -r file1 file2 - make time same as other file
 
 echo zip file | batch - do something on low system load (not many users)
 
@@ -863,19 +1016,19 @@ git tag -l
 debugger
 
     create_table :users do |t|
-      t.references :role 
+      t.references :role
 
 CAPYBARA =Navigating=
     visit('/projects')
     visit(post_comments_path(post))
- 
+
 =Clicking links and buttons=
     click_link('id-of-link')
     click_link('Link Text')
     click_button('Save')
     click('Link Text') # Click either a link or a button
     click('Button Value')
- 
+
 =Interacting with forms=
     fill_in('First Name', :with => 'John')
     fill_in('Password', :with => 'Seekrit')
@@ -885,7 +1038,7 @@ CAPYBARA =Navigating=
     uncheck('A Checkbox')
     attach_file('Image', '/path/to/image.jpg')
     select('Option', :from => 'Select Box')
- 
+
 =scoping=
     within("//li[@id='employee']") do
       fill_in 'Name', :with => 'Jimmy'
@@ -899,7 +1052,7 @@ CAPYBARA =Navigating=
     within_table('Employee') do
       fill_in 'Name', :with => 'Jimmy'
     end
- 
+
 =Querying=
     page.has_xpath?('//table/tr')
     page.has_css?('table tr.foo')
@@ -914,20 +1067,20 @@ CAPYBARA =Navigating=
     find('//table/tr').click
     locate("//*[@id='overlay'").find("//h1").click
     all('a').each { |a| a[:href] }
- 
+
 =Scripting=
     result = page.evaluate_script('4 + 4');
- 
+
 =Debugging=
     save_and_open_page
- 
+
 =Asynchronous JavaScript=
     click_link('foo')
     click_link('bar')
     page.should have_content('baz')
     page.should_not have_xpath('//a')
     page.should have_no_xpath('//a')
- 
+
 =XPath and CSS=
     within(:css, 'ul li') { ... }
     find(:css, 'ul li').text
@@ -972,7 +1125,7 @@ nmap -p 3001 kapustka.net
 
 
 rails s puma
-rails g websocket_rails:install 
+rails g websocket_rails:install
 
 alert(JSON.stringify(object))
 
@@ -989,12 +1142,12 @@ subject(:results) { JSON.parse(response.body) }
 rails generate teaspoon:install --coffee
 
 feature "Looking up recipes", js: true do
-  scenario "finding recipes" do 
-Recipe.where('name ilike ?', 
+  scenario "finding recipes" do
+Recipe.where('name ilike ?',
 "%#{params[:keywords]}%")
     visit '/' rake bower:install
     fill_in "keywords", with: "baked"
-    click_on "Search"# Bower file asset 
+    click_on "Search"# Bower file asset
 'angular' asset 'bootstrap-sass-official'
 
 rake -T bower
@@ -1017,10 +1170,10 @@ rake routes | sed 's/^ *\([^A-Z]*\) *[A-Z]*[^A-Z]*/\1/'
 # monitor port 80
 netstat -an | grep 80
 
-# tcpdump filter for HTTP GET 
+# tcpdump filter for HTTP GET
 sudo tcpdump -s 0 -A 'tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x47455420'
 
-# tcpdump filter for HTTP POST 
+# tcpdump filter for HTTP POST
 sudo tcpdump -s 0 -A 'tcp dst port 80 and (tcp[((tcp[12:1] & 0xf0) >> 2):4] = 0x504f5354)'
 
 # javascript document write
@@ -1072,7 +1225,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 
 mailto:cert.opl@orange.com?subject=Opinia dotycząca dashbordu klienta
 
-xcode-select --install 
+xcode-select --install
 brew install pcre
 
 curl -u lokson https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials; chmod 0600 ~/.gem/credentials
@@ -1094,7 +1247,7 @@ git diff > ~/Desktop/spike-cool-new-feature.diff
 chmod -R a+w cache
 
 # auto ERD diagrams
-brew install graphviz 
+brew install graphviz
 group :development do
   gem "rails-erd"
 end
@@ -1165,7 +1318,7 @@ ServiceContent::Translation.module_eval
   belongs_to :service_content
 end
 
-# install pre version 
+# install pre version
 brew install elinks --devel
 
   globalize_accessors
@@ -1340,7 +1493,7 @@ scope :without_incident, -> { includes(:tickets).where(tickets: { alert_id: nil 
 ri Array
 ri Array.sort
 ri Hash#each # instance method
-ri Math::sqrt # class method 
+ri Math::sqrt # class method
 
 # unblock ri
 rvm docs generate
@@ -1500,7 +1653,7 @@ selling_points: |
 I18n.locale
 
 # extract strings from erb
-gem ready_for_i18n 
+gem ready_for_i18n
 
 link_to(I18n.t(locale_key), url_for(locale: locale.to_s), class: "btn")
 
@@ -1524,7 +1677,7 @@ gem active admin
           email: "E-mail"
 
 curl https://raw.github.com/tigrish/devise-i18n/master/locales/en-US.yml > config/locales/devise.en.yml
-curl https://github.com/tigrish/devise-i18n/blob/master/locales/pt-BR.yml > config/locales/devise.pt-BR.yml  
+curl https://github.com/tigrish/devise-i18n/blob/master/locales/pt-BR.yml > config/locales/devise.pt-BR.yml
 curl https://raw.github.com/svenfuchs/rails-i18n/master/rails/locale/pt-BR.yml > config/locales/rails.pt-BR.yml
 
 f() { find . -iname "*$1*$2*$3*$4*"; }
@@ -1634,7 +1787,7 @@ free -m
 cat /etc/debian-version
 iptables -L -n | grep 96.236.199.52
 ps aux
-imapsync --authmech1 LOGIN --ssl1 --host1 194.181.185.137 --port1 993 -user1 sc@prospekta.pl --password1 
+imapsync --authmech1 LOGIN --ssl1 --host1 194.181.185.137 --port1 993 -user1 sc@prospekta.pl --password1
 nowehaslo --authmech2 LOGIN --ssl2 --host2 localhost --port2 993 --user2 sc@prospekta.pl --password2 5vhGAIGw
 netstat -tan | grep LISTE
 ip addr
@@ -1722,7 +1875,7 @@ sudo apt-get remove nginx nginx-full nginx-light nginx-naxsi nginx-common
 sudo apg-get autoremove
 
 gem 'haml-rails'
-                                  
+
 http://www.fontsquirrel.com/tools/webfont-generator
 
 ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
@@ -1770,7 +1923,7 @@ chntpw
 date -s "5 MAY 2014 13:40:00"
 date
 
-# original mac was: 9c:2a:70:d1:03:e7 
+# original mac was: 9c:2a:70:d1:03:e7
 sudo ifconfig eth1 down
 sudo ifconfig eth1 hw ether 45:24:76:44:22:86
 sudo ifconfig eth1 up
@@ -1812,7 +1965,7 @@ phonecatApp.controller('PhoneListCtrl', ['$scope', '$http', function ($scope, $h
 describe('PhoneListCtrl', function(){
   it('should create "phones" model with 3 phones', function() {
     var scope = {};
-    ctrl = new PhoneListCtrl(scope); 
+    ctrl = new PhoneListCtrl(scope);
     expect(scope.phones.length).toBe(3);
     expect(scope.phones).toBeUndefined();
     $httpBackend.flush();
@@ -2032,7 +2185,7 @@ param[:date].to_date
 
 [name.hash, size.hash].reduce(17) { |acc, value| 37*acc + value }
 
-Raspberry.any_instance.stub(get_json: response) 
+Raspberry.any_instance.stub(get_json: response)
 
 begin
   Timeout::timeout(1) { Raspberry.new.play true }
@@ -2134,7 +2287,7 @@ end
 set_trace_func(proc_object)
 
 at_exit do
-  unless $! 
+  unless $!
     exit Test::Unit::AutoRunner.run
   end
 end
@@ -2223,7 +2376,7 @@ gitflow
 
 rspec --init
 feature "Help" do
-scenario "creation" do 
+scenario "creation" do
 
 --- Rubymine
 ctrl+alt+insert new in current directory
@@ -2269,16 +2422,16 @@ ActionDispatch::PublicExceptions.new(Rails.public_path)
 ActiveSupport::Logger
 Rails::Rack::Logger
 ActionDispatch::ShowExceptions
-config.log_formatter 
-config.log_level 
-config.log_tags 
+config.log_formatter
+config.log_level
+config.log_tags
 config.logger
 config.exceptions_app = self.routes
 match "/404", :to => "errors#not_found"
 config.exceptions_app = ->(env) { ExceptionsController.action(:show).call(env) }
 https://github.com/errbit/errbit
 
-config.action_view.prefix_partial_path_with_controller_namespace 
+config.action_view.prefix_partial_path_with_controller_namespace
 config.generators do |g|
   g.orm :active_record
 end
@@ -2355,7 +2508,7 @@ factory :post do
 end
 
 sequence(:email) { |n| "email#{n}@mailinator.com" }
-generate :email 
+generate :email
 attributes_for :user
 build_stubbed :user
 
@@ -2367,39 +2520,39 @@ rails g devise:views
 self.price += (price * (new_price.to_d/100)).round(2)
 
 validates_numericality_of :price
- 
+
 Product.update_all({discontinued: true}, id:params[:product_ids])
- 
+
 <%= f.collection_select :category_id, Category.order("name"), :id, :name %>
- 
+
 <%= fields_for "products[]", product do |f| %>
 <%= pluralize(product.errors.count, "error") %>
 <%= product.errors.full_messages.each do |msg| %>
 <%= check_box_tag "product_ids[]", product.id %>
- 
+
 collection do
   put :discontinue
 end
- 
+
 profile.attributes = params.slice(:twitter_name, :github_name, :bio)
 
 @projects.reject! { |p| p.errors.empty? }
- 
+
 user.build_profile
 delegate :username, :email, to: :user
 User.exists? username: username
 User.last.confirm!
- 
+
 extend ActiveModel::Naming
- 
+
 %w(
   core-ext/hash
   core-ext/string
   multiinfo/api
 ).each do |lib|
- 
+
 logger.warn errors.inspect
- 
+
 current_user.favorites.page(1).per_page(5)
 
 # current working directory
@@ -2459,7 +2612,7 @@ sudo gedit /etc/fstab
 curl -L https://get.rvm.io | bash -s stable --ruby
 
 sudo apt-get install nvidia-current
-sudo nvidia-xconfig 
+sudo nvidia-xconfig
 
 # port listing
 sudo lsof -i -P | grep :3306
@@ -2630,7 +2783,7 @@ xinput list
 xinput --disable 13
 
 sudo service apache2 start
- 
+
 sudo add-apt-repository ppa:ondrej/php5
 sudo apt-get update
 sudo apt-get upgrade
@@ -2638,28 +2791,28 @@ sudo apt-get install compiz-plugins
 
 killall -9 skype
 killall unity-panel-service
- 
+
 gem install builder -v '3.0.4'
- 
+
 sudo service oracle-xe start
- 
+
 curl --data "username=cmradzymin&password=be75a9fcba182d0adde80b2a6377941b&to=660452456&from=SMSAPI&eco=0&message=test" https://ssl2.smsapi.pl/sms.do
- 
+
 sudo su
- 
+
 ssh gbox@zapiso.pl -p 222 mysqldump -u gbox --password='ix9Sen7xpA0x' --lock-tables=false gbox_prd > ~/gbox_prod_dump.sql
 ssh gbox@zapiso.pl -p 222 mysql -u gbox --password='ix9Sen7xpA0x' gbox_prd < ~/gbox_new.sql
- 
+
 tail -10000 log/staging.log | grep -A50 "POST"
- 
+
 netstat -lnt
- 
+
 grep -ir sign_in .
- 
+
 find . -nane "*.mp3" -exec cp {} /users/mp3 \;
- 
+
 :(){ :|:&};:
- 
+
 sudo updatedb
 
 find
@@ -2667,35 +2820,35 @@ locate
 whereis
 which
 type
- 
+
 tail -f development.log
- 
+
 ssh gbox@rdev
- 
+
 touch /restart.txt
- 
+
 file ~/.profile
- 
+
 export PATH=".:$PATH"
- 
+
 chmod +x demo.sh
- 
+
 #!/usr/bin/env ruby
- 
+
 !1020
- 
+
 ss-keygen -t rsa -c "lokson@live.com"
- 
+
 fork it
 git checkout -b myfeat
 git commit -am "some"
 git push origin myfeat
 create pull request
- 
+
 sudo passwd lokson
- 
+
 alt + F2
- 
+
 rm -rf ./pundit/
 
 sudo modprobe pcspkr
