@@ -1,7 +1,6 @@
+--- text width
 :set tw=50
-:set nowrap
-:set textwidth=50
-:set wrap
+gqae - refomat entire file
 
 --- sort on range
 :'<,'>sort
@@ -12,14 +11,17 @@ sort n - numeric
 --- eclim
 :PingEclim
 :EclimValidate
-:ProjectCreate /Users/lokson/my_project -n groovy java <tab completion>
+:ProjectCreate ~/my_project -n groovy java <tab completion>
+:ProjectCreate . -n groovy java
 :ProjectList
 :ProjectInfo
 :ProjectInfo my_project
 :ProjectOpen my_project
 - it is required to register source directories, using file:
-- /path/to/my-project.classpath
+- /path/to/my-project/.classpath
 :JavaMove to-package
+- update .classpath from maven in eclim
+:Mvn eclipse:eclipse
 
 --- read only registers:
 "+ - clipboard

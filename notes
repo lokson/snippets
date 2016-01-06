@@ -1,3 +1,20 @@
+# fix java annotation indentation in vim
+# in ~/.vim/after/indent/java.vim
+function! GetJavaIndent_improved()
+  let theIndent = GetJavaIndent()
+  let lnum = prevnonblank(v:lnum - 1)
+  let line = getline(lnum)
+  if line =~ '^\s*@.*$'
+    let theIndent = indent(lnum)
+  endif
+
+  return theIndent
+endfunction
+setlocal indentexpr=GetJavaIndent_improved()
+
+# bower download dependencies
+bower install
+
 # create eclipse (or eclim) from gradle repo
 gradle eclipse
 
