@@ -1,3 +1,31 @@
+# reinstall mysql
+brew remove mysql
+brew cleanup --force
+sudo rm -rf /usr/local/var/mysql
+brew install mysql
+unset TMPDIR
+mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+mysql.server start
+# start alternate security
+launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+# stop alternate security
+launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+# We've installed your MySQL database without a root password. To secure it run:
+#     mysql_secure_installation
+# To connect run:
+#     mysql -uroot
+# To have launchd start mysql at login:
+#   ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+# Then to load mysql now:
+#   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+# Or, if you don't want/need launchctl, you can just run:
+#   mysql.server start
+
+# twitter bootstrap cols 6 with no gaps (like .col-sm-6)
+.no-gutter [class*="-6"] {
+    padding-left:0;
+}
+
 # apache reverse proxy
 # in /etc/apache2/httpd.conf
 ProxyPass /ifab-front/api/ http://localhost:8070/
