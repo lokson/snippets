@@ -11,8 +11,8 @@ sort n - numeric
 --- eclim
 :PingEclim
 :EclimValidate
-:ProjectCreate ~/my_project -n groovy java <tab completion>
 :ProjectCreate . -n groovy java
+:ProjectCreate ~/my_project -n groovy java <tab completion>
 :ProjectList
 :ProjectInfo
 :ProjectInfo my_project
