@@ -1,3 +1,7 @@
+--- in visual mode
+u - downcase selection
+U - uppercase selection
+
 --- text width
 :set tw=50
 gqae - refomat entire file
