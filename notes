@@ -1,3 +1,17 @@
+# ultisnips example (this is meta snippet)
+snippet help_snippet
+---
+title: [type dollar here]{1:Meet UltiSnips}
+date: [type dollar here]{2:[type bash quote here]date +%Y-%m-%d[type bash quote here]}
+tags: [type dollar here]3
+---
+# [type dollar here]1
+[type dollar here]0
+endsnippet
+
+# gradle run selected tests
+gradle test --tests *Many*
+
 # test prerender
 cd ~/ifab-prerender-server
 node server.js
