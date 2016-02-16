@@ -1,3 +1,8 @@
+--- Git show previous version
+:Glog
+[q ]q - previous, next
+[Q ]Q - first, last
+
 --- in visual mode
 u - downcase selection
 U - uppercase selection
@@ -122,9 +127,6 @@ ysiwb - surround word with ()
 
 ae - entire file content
 ie - file content without leading and trailing empty lines
-
---- Git show previous version
-:Glog -- %
 
 --- Emmet
 html:5 and then ^y,
