@@ -1,3 +1,7 @@
+--- Change tab to spaces
+:set expandtab tabstop=2
+:retab
+
 --- Git show previous version
 :Glog
 [q ]q - previous, next
