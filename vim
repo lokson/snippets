@@ -1,6 +1,23 @@
+--- splits
+^W R - swap split positions
+^W o - close every split but not current
+
+--- navigate
+H - high
+M - middle
+L - low
+zz - center
+zt - set current as top
+_ - first non blank in line
+g_ - last non blank in line
+50% - go to 50 % of file
+mm - set mark called m
+`m - go to mark m
+'m - go to first non blank char on line with mark
+
 --- Change tab to spaces
-:set expandtab tabstop=2
-:retab
+set expandtab tabstop=2
+retab
 
 --- Git show previous version
 :Glog

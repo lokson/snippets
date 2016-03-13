@@ -1,3 +1,6 @@
+# show changed files
+git log --stat
+
 # ultisnips example (this is meta snippet)
 snippet help_snippet
 ---
