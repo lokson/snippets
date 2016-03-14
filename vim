@@ -1,3 +1,5 @@
+cmd-u toggle transparency (iterm)
+
 --- splits
 ^W R - swap split positions
 ^W o - close every split but not current
