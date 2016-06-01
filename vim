@@ -105,7 +105,7 @@ o go - open (stay)
 --- CTRL-P essentials
 ^v - split |
 ^x - split -
-F7 - clear MRU list
+F6 - clear MRU list
 ^j ^k - navigate (up)
 ^p ^n - previous phrase from history (next)
 ^f ^b - cycle between modes
