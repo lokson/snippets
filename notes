@@ -1,3 +1,35 @@
+# postgres
+# login
+psql -U postgres
+# login with no user database
+psql -d template1;
+# list databases
+\l
+# quit
+\q
+# create/drop database
+create database mydb;
+drop database mydb;
+# create user
+create user bob with password 'mypass';
+# connect to database
+\c mydb;
+# schema is set of tables
+# this is not required
+# it is used to group tables
+create schema friends;
+create table friends.test( firstname CHAR(15), lastname CHAR(20) );
+# describe
+\d friends.test
+# create user
+create user lokson with createdb;
+
+
+
+# initial server setup
+adduser lokson
+gpasswd -a lokson sudo
+
 # install rust
 curl -sSf https://static.rust-lang.org/rustup.sh | sh
 
