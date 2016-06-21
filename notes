@@ -1,3 +1,23 @@
+# rails ActiveRecord::Store
+store :settings, accessors: [:color, :homepage], coder: JSON
+# or one accessor
+store_accessor :meta, :gitlab_private_token
+
+# active record migrations
+# column types
+t.inet :current_sign_in_ip
+t.jsonb :meta, default: {}
+t.belongs_to ;user, index: true
+t.string :tags, array: true, default: []
+
+# how to start redis
+To have launchd start redis at login:
+  ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
+Then to load redis now:
+  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+Or, if you don't want/need launchctl, you can just run:
+  redis-server /usr/local/etc/redis.conf
+
 # postgres
 # login
 psql -U postgres
