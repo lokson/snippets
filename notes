@@ -1,3 +1,10 @@
+# javascript
+[...Array(10)]
+
+const links = document.querySelectorAll('a');
+for (let i=0; i<links.length; i++) {
+}
+
 # rails ActiveRecord::Store
 store :settings, accessors: [:color, :homepage], coder: JSON
 # or one accessor
