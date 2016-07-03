@@ -1,3 +1,29 @@
+# Parses the document into its parse tree. Memoized.
+#
+# @return [Sass::Tree::Node] The root of the parse tree.
+# @raise [Sass::SyntaxError] if there's an error in the document
+def to_tree
+  @tree ||= if @options[:quiet]
+              Sass::Util.silence_sass_warnings {_to_tree}
+            else
+              _to_tree
+            end
+end
+
+# irb within new gem
+irb -Ilib
+require 'sass'
+
+# gemspec
+if RUBY_VERSION =~ /^1\.8/ || RUBY_VERSION =~ /^1\.9\.[012]$/
+  gem 'rake', '~> 10.5.0'
+end
+...
+gem "sass-spec", :path => "../sass-spec"
+
+# css gradients
+background: radial-gradient(circle at 50% 10%, #F7C890 -10%, transparent 90%), linear-gradient(140deg, #EC0808 -20%, transparent 60%), linear-gradient(-150deg, #6BCCE6 -10%, transparent 60%), radial-gradient(40% 50% at 50% 120%, rgba(30, 12, 76, .9), transparent), linear-gradient(to right, #F52274, #2761F9), white
+
 # javascript
 [...Array(10)]
 

@@ -1,3 +1,14 @@
+--- text width
+:set tw=50
+gqae - refomat entire file
+
+--- Change tab to spaces
+:set expandtab tabstop=2
+:retab
+
+--- Show whitespaces
+:set list
+
 cmd-u toggle transparency (iterm)
 
 --- splits
@@ -17,10 +28,6 @@ mm - set mark called m
 `m - go to mark m
 'm - go to first non blank char on line with mark
 
---- Change tab to spaces
-set expandtab tabstop=2
-retab
-
 --- Git show previous version
 :Glog
 [q ]q - previous, next
@@ -29,10 +36,6 @@ retab
 --- in visual mode
 u - downcase selection
 U - uppercase selection
-
---- text width
-:set tw=50
-gqae - refomat entire file
 
 --- sort on range
 :'<,'>sort
