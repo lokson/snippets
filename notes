@@ -1,3 +1,8 @@
+# bash startup files
+# .bashrc - keep it minimal, it's used always
+# .profile - legacy file
+# .bash_profile - read once, at login
+
 # recent github projects to contribute
 created:>2016-05-01 stars:>20
 
