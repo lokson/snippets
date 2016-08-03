@@ -1,3 +1,18 @@
+# rabbit post installation:
+To have launchd start rabbitmq now and restart at login:
+  brew services start rabbitmq
+Or, if you don't want/need a background service you can just run:
+  rabbitmq-server
+
+# To install the latest release:
+$ brew install neovim/neovim/neovim
+
+# To upgrade from a previous version:
+$ brew update
+$ brew upgrade neovim
+
+
+
 # bash startup files
 # .bashrc - keep it minimal, it's used always
 # .profile - legacy file
