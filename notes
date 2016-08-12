@@ -1,3 +1,54 @@
+# Rafał, skype
+https://appear.in/rails-talk
+http://mail.impaqgroup.com/
+piotr.stolarski80
+rzyk.it: Maciej.Kasprzyk@impaqgroup.com
+https://gitlab.tlabscloud.com/falcon/webportal
+https://gitlab.tlabscloud.com/falcon/oauth-server
+https://gitlab.tlabscloud.com/falcon/payments
+https://gitlab.tlabscloud.com/falcon/topup_microservice/
+w każdym:
+git checkout develop
+cp config/falcon.yml.sample config/falcon.yml
+bundle
+bin/rake (portal, oauth)
+bundle exec rspec (payments, topup)
+bundle exec cucumber (jw)
+testy przy uruchomionym vpn i redisie
+https://falconproject.slack.com/messages/falconportal/
+https://falconproject.slack.com/messages/portal-private/
+https://falconproject.slack.com/messages/portal_rails/
+https://falconproject.slack.com/messages/impaq/
+https://falconproject.slack.com/messages/immmr/
+https://falconproject.slack.com/messages/general/
+https://portal.dev2.falcon.eu.com/
+jeśli masz jakieś pytania to pisz na tutaj lub na Slacku
+ja jeszcze muszę tu chwilę posiedzieć
+jasne, kładzie się jeden test na payments, poza tym całość przechodzi
+1) Braintree webhooks handle notification that subscription was charged succuessfully
+     Failure/Error: expect(bunny.channels.flat_map(&:queues).flat_map(&:messages)).to include([details, message])
+kibana.int-log.falcon4.eu
+https://confluence.falcon.eu.com/display/TES2222/Processes
+https://confluence.falcon.eu.com/display/TES2222/Micro+Services
+Ruby:
+https://confluence.falcon.eu.com/display/TES2222/Portal+Service
+https://confluence.falcon.eu.com/display/TES2222/oAuth+Service
+https://confluence.falcon.eu.com/display/TES2222/Payments+Microservice
+https://confluence.falcon.eu.com/display/TES2222/Topup+Microservice
+[03/08/16 15:45:10] Rafał Kukulski: Java:
+https://confluence.falcon.eu.com/display/TES2222/Profile+Service
+https://confluence.falcon.eu.com/display/TES2222/Did+Service
+https://confluence.falcon.eu.com/display/TES2222/Notification+Service
+https://confluence.falcon.eu.com/display/TES2222/Billing+microservice
+Renata.Mtiri@impaqgroup.com
+postgresql.dev2.falcon4.eu
+22 125 34 54
+kod: 87868834
+appear.in/webportaldaily
+https://jira.falcon.eu.com/browse/PRT-3635
+http://userprofile.dev2.falcon4.eu:12081/swagger/index.html
+curl -i -X POST -H "content-type=[application/x-www-form-urlencoded]" -H "Accept=[*/*]" --header "Authorization: Basic M2Q3MTBmNTQtNDY2MC00MDczLTg5MzctZjA5YzkwMTkwMDNlOnhvaXdEQU8wMTYzN1NNdmRHRS1MMmJGRUVHMTdhLW5JWnoyMU9wY2wyT3ZKWWhIS3UtblRyblF5RUx3RklBQ0ljdk5HN2taWEYtTUljS1g3V0JZTnpB" -d 'grant_type=client_credentials' https://oauth.dev2.falcon.eu.com/oauth/token
+
 # rabbit post installation:
 To have launchd start rabbitmq now and restart at login:
   brew services start rabbitmq
