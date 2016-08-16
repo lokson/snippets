@@ -1,3 +1,6 @@
+--- cucumber
+]^d [^d - jump to definition
+
 --- text width
 :set tw=50
 gqae - refomat entire file

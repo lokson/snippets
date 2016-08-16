@@ -1,3 +1,6 @@
+# getting immmr oauth access token
+curl -i -X POST -H "content-type=[application/x-www-form-urlencoded]" -H "Accept=[*/*]" --header "Authorization: Basic M2Q3MTBmNTQtNDY2MC00MDczLTg5MzctZjA5YzkwMTkwMDNlOnhvaXdEQU8wMTYzN1NNdmRHRS1MMmJGRUVHMTdhLW5JWnoyMU9wY2wyT3ZKWWhIS3UtblRyblF5RUx3RklBQ0ljdk5HN2taWEYtTUljS1g3V0JZTnpB" -d 'grant_type=client_credentials' https://oauth.dev2.falcon.eu.com/oauth/token
+
 # Rafał, skype
 https://appear.in/rails-talk
 http://mail.impaqgroup.com/
