@@ -1,3 +1,34 @@
+# cucumber helpers
+Given(/selenium/) do
+  Capybara.current_driver = :selenium
+end
+
+Given(/^pry$/) do
+  binding.pry
+end
+
+Given(/^sleep (\d)+$/) do
+  sleep $1
+end
+
+# debug webmock
+WebMock.after_request do |req, response|
+  request = {
+    uri: req.uri.to_s,
+    method: req.method.to_s.upcase,
+    headers: req.headers,
+    body: req.body
+  }
+  puts request.inspect
+  puts response.inspect
+end
+
+# dev2 user_id
+ba632b02-5984-4d08-ad96-07fe8dd98303
+
+# immmr userprofile swagger
+https://userprofile.dev2.falcon4.eu:12081/swagger/index.html#!/user-profile-rest-resource/getUserProfileUsingGET
+
 # getting immmr oauth access token
 curl -i -X POST -H "content-type=[application/x-www-form-urlencoded]" -H "Accept=[*/*]" --header "Authorization: Basic M2Q3MTBmNTQtNDY2MC00MDczLTg5MzctZjA5YzkwMTkwMDNlOnhvaXdEQU8wMTYzN1NNdmRHRS1MMmJGRUVHMTdhLW5JWnoyMU9wY2wyT3ZKWWhIS3UtblRyblF5RUx3RklBQ0ljdk5HN2taWEYtTUljS1g3V0JZTnpB" -d 'grant_type=client_credentials' https://oauth.dev2.falcon.eu.com/oauth/token
 
