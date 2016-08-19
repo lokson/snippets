@@ -1,3 +1,18 @@
+def test_interpolation_in_multiline_selector
+  assert_equal(<<CSS, render(<<SASS))
+.foo,
+.bar {
+a: b; }
+CSS
+.foo,
+\#{".bar"}
+a: b
+SASS
+end
+
+# evaluate string (meta programming)
+visit send("#{path}_path")
+
 # cucumber helpers
 Given(/selenium/) do
   Capybara.current_driver = :selenium
