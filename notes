@@ -209,7 +209,9 @@ create table friends.test( firstname CHAR(15), lastname CHAR(20) );
 # create user
 create user lokson with createdb;
 
-
+# mysql
+create database inexistent_activerecord_unittest;
+grant all privileges on inexistent_activerecord_unittest.* to 'rails'@'localhost';
 
 # initial server setup
 adduser lokson
