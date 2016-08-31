@@ -1,12 +1,51 @@
-def test_interpolation_in_multiline_selector
-  assert_equal(<<CSS, render(<<SASS))
+
+@media screen and (min-width: 992px) and (max-width: 1365px) {
+
+    old_tabs, @tabs = @tabs, tabs
+
+  # @comment
+  #   rubocop:enable MethodLength
+
+      if respond_to?(node.class.visit_method, true)
+
+  def visit_rule(node)
+    with_tabs(@tabs + node.tabs) do
+
+  def test_indentation_levels
+    assert_equal <<css, render(<<sass, :syntax => :scss)
+.modal .caption-edit {
+  max-width: 450px; }
+.modal .caption-edit textarea {
+  max-width: 360px; }
+css
+.modal {
+  .caption-edit {
+    max-width: 450px;
+
+    textarea {
+      max-width: 360px;
+    }
+  }
+}
+sass
+  end
+
+  def with_tabs(tabs)
+    old_tabs, @tabs = @tabs, tabs
+    yield
+  ensure
+    @tabs = old_tabs
+  end
+
+  def test_interpolation_in_multiline_selector
+    assert_equal(<<CSS, render(<<SASS))
 .foo,
 .bar {
-a: b; }
+  a: b; }
 CSS
 .foo,
 \#{".bar"}
-a: b
+  a: b
 SASS
 end
 
