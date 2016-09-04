@@ -1,3 +1,14 @@
+  def check_user_id(response)
+    self.user_id = response && response[:body][:user_id]
+    fail if user_id.blank?
+  end
+
+    def for_permission(identifier, user)
+      if user.is_a?(User)
+        group = user.groups.select { |group| group[:wallet_id] == identifier }.first
+        Group.find_by(id: group[:group_id]) if group
+      end
+    end
 
 @media screen and (min-width: 992px) and (max-width: 1365px) {
 
