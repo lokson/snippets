@@ -1,3 +1,7 @@
+brew update
+
+  rescue_from ImmmrRubyMS::AuthorizationDenied, with: :render_unauthorized
+
   def check_user_id(response)
     self.user_id = response && response[:body][:user_id]
     fail if user_id.blank?
