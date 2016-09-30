@@ -1,3 +1,13 @@
+# require just active_model
+require 'active_model'
+
+# prettify json in linux shell
+% curl -s http://jsonip.com/ | \
+  prettify_json.rb
+{
+  "ip": "24.60.248.134"
+}
+
 # big diagonal stripes background
   background-image:
     linear-gradient(
