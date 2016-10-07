@@ -1,3 +1,7 @@
+--- markdown
+gx - open link
+]], [[ - next header, previous header
+
 --- cucumber
 ]^d [^d - jump to definition
 
