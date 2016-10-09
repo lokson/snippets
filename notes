@@ -1,3 +1,17 @@
+# better pry debug
+gem 'pry-byebug'
+# go next
+next
+# dive in / dive out
+step
+finish
+# stack
+backtrace
+up
+down
+# end
+continue
+
 # require just active_model
 require 'active_model'
 
