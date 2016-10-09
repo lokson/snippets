@@ -1,3 +1,10 @@
+# 
+class Api::V1::NatcoController < Api::BaseController
+  rescue_from ImmmrRubyMS::AuthorizationDenied, with: :render_unauthorized
+
+
+it 'returns status not found', wip: true do
+
 # better pry debug
 gem 'pry-byebug'
 # go next
