@@ -1,8 +1,16 @@
-# 
-class Api::V1::NatcoController < Api::BaseController
-  rescue_from ImmmrRubyMS::AuthorizationDenied, with: :render_unauthorized
+# tabularize tables
+Tab /|
+# tabularize by ':' (on range)
+Tab /:\zs
 
+# session in immr
+call_function session[some-id]
 
+# rescue from
+class Api::V1::Controller < Api::BaseController
+  rescue_from RubyMS::AuthorizationDenied, with: :render_unauthorized
+
+# rspec, use of wip
 it 'returns status not found', wip: true do
 
 # better pry debug
