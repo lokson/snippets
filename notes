@@ -1,17 +1,8 @@
-# tabularize tables
-Tab /|
-# tabularize by ':' (on range)
-Tab /:\zs
-
-# session in immr
-call_function session[some-id]
-
-# rescue from
-class Api::V1::Controller < Api::BaseController
-  rescue_from RubyMS::AuthorizationDenied, with: :render_unauthorized
-
-# rspec, use of wip
-it 'returns status not found', wip: true do
+# NATCO CURLS
+# change msisdn:
+curl -K ~/curls/natco -X PATCH -d new_msisdn=0058660452456 $dev2portal/api/v1_0/managed_users/0048660452999
+# check isFalconuser:
+curl -K ~/curls/userprofile $dev2userprofile/user/isFalconUser?isdn=%2B48660452456
 
 # better pry debug
 gem 'pry-byebug'
@@ -26,6 +17,134 @@ up
 down
 # end
 continue
+
+
+# CURL curl
+# ftp, smtp and ssl options ommited
+# file save
+curl maciej-kasprzyk.pl > my_file
+# globbing
+curl site[1-10]
+curl site{one,two}.com
+# follow redirect
+-L, --location
+--max-redirs number
+# type GET POST PUT PATCH (no delete)
+# PATCH - change
+# PUT - replace entirely
+-X, --request GET
+
+# sends in post request
+# sets content-type application/x-www-form-urlencoded
+# compare to -F, --form
+-d, --data
+-d name=daniel -d skill=lousy # use multi times
+-d 'name=daniel&skill=lousy'
+-d @file
+-d @file1 -d @file2
+--data-raw @name=value # use @ as character
+-d - # from command line
+--data-binary # read binary
+
+# send form data
+-F, --form name=daniel
+# file upload
+# sets content-type multipart/form-data
+-F "file=@localfile;filename=my_file"
+# just get content part from file
+-F "file=<localfile"
+# custom content type
+-F "name=daniel;type=text/foo"
+# set file upload
+-F "file=@localfile;filename=my_file"
+
+# config example
+url = "curl.haxx.se"
+output = "curlhere.html"
+user-agent = "superagent/1.0"
+-O
+referer = "http://nowhereatall.com"
+# load a config
+-K, --config file
+# can be used multiple
+curl --config file1 --config file2
+# save
+.curlrc
+# dont use .curlrc
+-q
+
+# put command upload file
+# use - as filename for stdin
+# use . as same but with non blocking way stdout
+-T, --upload-file file
+# write output to folder with auto name set
+# make sure there is no collision
+-O, --remote-name
+# SSL, SSH
+--pass phrase
+u, --user user:password
+# header
+# will repeat to send headers on redirect
+-H, --header "X-First-Name: Joe"
+# include headers in output
+-i, --include
+# only head
+-I, --head
+# simulate browser close
+-j, --junk-session-cookies
+# allow insecure SSL connections
+-k, --insecure
+# set referer header
+-e, --referer url
+# custom dns
+--dns-servers <ip-address,ip-address>
+# preventpassword to be sent over
+# use this in combination with -u --user
+--digest
+# write headers to file
+# can be used for cookies -c option too!
+-D, --dump-header file
+# set cookie send
+-b, --cookie "NAME1=VALUE1; NAME2=VALUE2"
+# where to write cookie changes
+# several use: use the last value
+-c, --cookie-jar file
+# set offset in file transfer
+# several use: use the last value
+-C, --continue-at size
+# force basic authentication (which IS DEFAULT)
+--basic
+# which ssl ciphers
+-- ciphers
+# set max time for curl to execute
+# several use: use the last value
+--connect-timeout seconds
+# used with -o option
+--create-dirs
+# retrive by byte
+# -500 last 500
+# 0-0,-1 first and last bytes
+-r, --range 0-499
+
+# bash files
+command >> append
+command > overwrite
+command > file 2>&1 # both stdout AND STDERR
+
+# tabularize tables
+Tab /|
+# tabularize by ':' (on range)
+Tab /:\zs
+
+# session
+call_function session[some-id]
+
+# rescue from
+class Api::V1::Controller < Api::BaseController
+  rescue_from RubyMS::AuthorizationDenied, with: :render_unauthorized
+
+# rspec, use of wip tag
+it 'returns status not found', wip: true do
 
 # require just active_model
 require 'active_model'
@@ -49,7 +168,7 @@ require 'active_model'
       white 75%,
       transparent 75%,
       transparent 100%),
-    
+
     linear-gradient(
       to bottom right,
       rgba(purple, .2),
