@@ -1,8 +1,31 @@
-# NATCO CURLS
+# WATCH KIBANA
+level:(ERROR or FATAL)
+
+# scenario outline
+Scenario Outline: eating
+  Given there are <start> cucumbers
+  When I eat <eat> cucumbers
+  Then I should have <left> cucumbers
+
+  Examples:
+    | start | eat | left |
+    |  12   |  5  |  7   |
+    |  20   |  5  |  15  |
+
 # change msisdn:
 curl -K ~/curls/natco -X PATCH -d new_msisdn=0058660452456 $dev2portal/api/v1_0/managed_users/0048660452999
 # check isFalconuser:
 curl -K ~/curls/userprofile $dev2userprofile/user/isFalconUser?isdn=%2B48660452456
+
+# bash files
+command >> append
+command > overwrite
+command > file 2>&1 # both stdout AND STDERR
+
+# tabularize tables
+Tab /|
+# tabularize by ':' (on range)
+Tab /:\zs
 
 # better pry debug
 gem 'pry-byebug'
@@ -18,7 +41,6 @@ down
 # end
 continue
 
-
 # CURL curl
 # ftp, smtp and ssl options ommited
 # file save
@@ -33,7 +55,6 @@ curl site{one,two}.com
 # PATCH - change
 # PUT - replace entirely
 -X, --request GET
-
 # sends in post request
 # sets content-type application/x-www-form-urlencoded
 # compare to -F, --form
@@ -45,7 +66,6 @@ curl site{one,two}.com
 --data-raw @name=value # use @ as character
 -d - # from command line
 --data-binary # read binary
-
 # send form data
 -F, --form name=daniel
 # file upload
@@ -57,7 +77,6 @@ curl site{one,two}.com
 -F "name=daniel;type=text/foo"
 # set file upload
 -F "file=@localfile;filename=my_file"
-
 # config example
 url = "curl.haxx.se"
 output = "curlhere.html"
@@ -72,7 +91,6 @@ curl --config file1 --config file2
 .curlrc
 # dont use .curlrc
 -q
-
 # put command upload file
 # use - as filename for stdin
 # use . as same but with non blocking way stdout
@@ -125,16 +143,6 @@ u, --user user:password
 # -500 last 500
 # 0-0,-1 first and last bytes
 -r, --range 0-499
-
-# bash files
-command >> append
-command > overwrite
-command > file 2>&1 # both stdout AND STDERR
-
-# tabularize tables
-Tab /|
-# tabularize by ':' (on range)
-Tab /:\zs
 
 # session
 call_function session[some-id]
