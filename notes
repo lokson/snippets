@@ -1,12 +1,12 @@
 # WATCH KIBANA
 level:(ERROR or FATAL)
+correlation_id:"because-it-has-dashes"
 
 # scenario outline
 Scenario Outline: eating
   Given there are <start> cucumbers
   When I eat <eat> cucumbers
   Then I should have <left> cucumbers
-
   Examples:
     | start | eat | left |
     |  12   |  5  |  7   |
@@ -14,6 +14,10 @@ Scenario Outline: eating
 
 # change msisdn:
 curl -K ~/curls/natco -X PATCH -d new_msisdn=0058660452456 $dev2portal/api/v1_0/managed_users/0048660452999
+# migrate OTT -> MOTT
+curl -K ~/curls/natco -X POST -d msisdn=0048660452456 $dev2portal/api/v1_0/managed_users
+curl -K ~/curls/natco -X POST -d msisdn=0048660452456 $qaportal/api/v1_0/managed_users
+
 # check isFalconuser:
 curl -K ~/curls/userprofile $dev2userprofile/user/isFalconUser?isdn=%2B48660452456
 
